@@ -1,0 +1,3 @@
+name = Drupal ACS
+description = An integration module between Drupal and Access ACS. Provides a sync and views.
+core = 7.x
