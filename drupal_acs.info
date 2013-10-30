@@ -1,3 +1,7 @@
-name = Drupal ACS
-description = An integration module between Drupal and Access ACS. Provides a sync and views.
+name = ACS Sync
+description = Synchronizes ACS users with Drupal tables.
 core = 7.x
+package = ACS
+configure = admin/config/content/acs-sync
+files[] = drupal_acs.module
+php = 5.4
