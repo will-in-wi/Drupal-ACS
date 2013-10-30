@@ -3,5 +3,5 @@ description = Synchronizes ACS users with Drupal tables.
 core = 7.x
 package = ACS
 configure = admin/config/content/acs-sync
-files[] = drupal_acs.module
+files[] = acs_sync.module
 php = 5.4
