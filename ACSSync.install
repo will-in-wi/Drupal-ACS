@@ -247,15 +247,31 @@ function acssync_schema() {
 		'primary key' => array('AddrId'),
 	);
 
-	$schema['accessacs_phone'] = array(
-		'description' => t('AccessACS Individual phone numbers'),
-		'fields' => array(
+	$schema['accessacs_phone_individual'] = [
+		'description' => t('AccessACS Join table for phone to individuals.'),
+		'fields' => [
 			'IndvId' => array(
 				'description' => t('The primary identifier for an individual'),
 				'type' => 'int',
 				'unsigned' => TRUE,
 				'not null' => TRUE
 			),
+			'PhoneId' => array(
+				'description' => t('The primary identifier for an phone'),
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE
+			),
+		],
+		'unique keys' => array(
+			'PhoneId' => array('PhoneId', 'IndvId'),
+		),
+		'primary key' => array('PhoneId', 'IndvId'),
+	];
+
+	$schema['accessacs_phone'] = array(
+		'description' => t('AccessACS Individual phone numbers'),
+		'fields' => array(
 			'PhoneId' => array(
 				'description' => t('The primary identifier for a phone number'),
 				'type' => 'int',
