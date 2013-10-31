@@ -1,227 +1,227 @@
 <?php
 
 function acssync_menu() {
-	$items = array();
+  $items = array();
 
-	$items['admin/config/content/acs-sync'] = array(
-		'title' => 'AccessACS Sync Administration',
-		'description' => 'Configuration for AccessACS Sync',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array('acssync_admin_form'),
-		'access arguments' => array('administer accessacs'),
-		'type' => MENU_NORMAL_ITEM,
-	);
+  $items['admin/config/content/acs-sync'] = array(
+    'title' => 'AccessACS Sync Administration',
+    'description' => 'Configuration for AccessACS Sync',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('acssync_admin_form'),
+    'access arguments' => array('administer accessacs'),
+    'type' => MENU_NORMAL_ITEM,
+  );
 
-	$items['acs-sync'] = array(
-		'title' => 'Sync AccessACS',
-		'description' => 'Sync AccessACS to Drupal Tables',
-		'page callback' => 'acssync_sync',
-		'access arguments' => array('administer accessacs'),
-		'type' => MENU_NORMAL_ITEM,
-	);
+  $items['acs-sync'] = array(
+    'title' => 'Sync AccessACS',
+    'description' => 'Sync AccessACS to Drupal Tables',
+    'page callback' => 'acssync_sync',
+    'access arguments' => array('administer accessacs'),
+    'type' => MENU_NORMAL_ITEM,
+  );
 
-	return $items;
+  return $items;
 }
 
 
 function acssync_permission() {
-	return array(
-		'administer accessacs' => array(
-			'title' => t('Change core settings for AccessACS integration.'),
-		)
-	);
+  return array(
+    'administer accessacs' => array(
+      'title' => t('Change core settings for AccessACS integration.'),
+    )
+  );
 }
 
 
 function acssync_admin_form($form, &$form_state) {
-	$form['acs_site_number'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Site Number'),
-		'#default_value' => variable_get('acs_site_number', ''),
-		// '#description' => t('The AccessACS site number'),
-		'#required' => TRUE,
-	);
+  $form['acs_site_number'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Site Number'),
+    '#default_value' => variable_get('acs_site_number', ''),
+    // '#description' => t('The AccessACS site number'),
+    '#required' => TRUE,
+  );
 
-	$form['acs_username'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Username'),
-		'#default_value' => variable_get('acs_username', ''),
-		// '#description' => t('The AccessACS site number'),
-		'#required' => TRUE,
-	);
+  $form['acs_username'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Username'),
+    '#default_value' => variable_get('acs_username', ''),
+    // '#description' => t('The AccessACS site number'),
+    '#required' => TRUE,
+  );
 
-	$form['acs_password'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Password'),
-		'#default_value' => variable_get('acs_password', ''),
-		// '#description' => t('The AccessACS site number'),
-		'#required' => TRUE,
-	);
+  $form['acs_password'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Password'),
+    '#default_value' => variable_get('acs_password', ''),
+    // '#description' => t('The AccessACS site number'),
+    '#required' => TRUE,
+  );
 
-	return system_settings_form($form);
+  return system_settings_form($form);
 }
 
 function acssync_sync()
 {
-	echo '<pre>';
+  echo '<pre>';
 
-	$site_number = variable_get('acs_site_number');
-	$username = variable_get('acs_username');
-	$password = variable_get('acs_password');
+  $site_number = variable_get('acs_site_number');
+  $username = variable_get('acs_username');
+  $password = variable_get('acs_password');
 
-	if (empty($site_number) || empty($username) || empty($password)) {
-		drupal_set_message(t('ACS auth settings not set.'), 'error');
-		return;
-	}
+  if (empty($site_number) || empty($username) || empty($password)) {
+    drupal_set_message(t('ACS auth settings not set.'), 'error');
+    return;
+  }
 
-	$acsAPI = new Drupal\ACSSync\API($site_number, $username, $password);
+  $acsAPI = new Drupal\ACSSync\API($site_number, $username, $password);
 
-	try {
-		$result = $acsAPI->get_all_people(200);
-		// $result = $acsAPI->get_person(271);
-	} catch (Exception $e) {
-		drupal_set_message(t('ACS API returned an error: ' . $e->getMessage(), 'error'));
-		return;
-	}
+  try {
+    $result = $acsAPI->get_all_people(200);
+    // $result = $acsAPI->get_person(271);
+  } catch (Exception $e) {
+    drupal_set_message(t('ACS API returned an error: ' . $e->getMessage(), 'error'));
+    return;
+  }
 
-	// Start new transaction
-	$transaction = db_transaction();
+  // Start new transaction
+  $transaction = db_transaction();
 
-	try {
-		db_truncate('accessacs_individuals')->execute();
-		db_truncate('accessacs_addresses')->execute();
-		db_truncate('accessacs_phone')->execute();
-		db_truncate('accessacs_email')->execute();
+  try {
+    db_truncate('accessacs_individuals')->execute();
+    db_truncate('accessacs_addresses')->execute();
+    db_truncate('accessacs_phone')->execute();
+    db_truncate('accessacs_email')->execute();
 
-		foreach ($result->Page as $simple_person) {
-			$individual = $acsAPI->get_person($simple_person->IndvId);
-			// var_dump($individual);
-			db_insert('accessacs_individuals')
-				->fields(array(
-					'IndvId' => $individual->IndvId,
-					'PrimFamily' => $individual->PrimFamily,
-					'MiddleName' => $individual->MiddleName,
-					'Title' => $individual->Title,
-					'LastName' => $individual->LastName,
-					'FirstName' => $individual->FirstName,
-					'PictureUrl' => $individual->PictureUrl,
-					'FamilyPosition' => $simple_person->FamilyPosition,
-					'Suffix' => $individual->Suffix,
-					'FullName' => $individual->FullName,
-					'FriendlyName' => $individual->FriendlyName,
-					'FamilyPictureUrl' => $individual->FamilyPictureUrl,
-					'DateOfBirth' => $individual->DateOfBirth,
-					'MemberStatus' => $individual->MemberStatus,
-				))
-				->execute();
+    foreach ($result->Page as $simple_person) {
+      $individual = $acsAPI->get_person($simple_person->IndvId);
+      // var_dump($individual);
+      db_insert('accessacs_individuals')
+        ->fields(array(
+          'IndvId' => $individual->IndvId,
+          'PrimFamily' => $individual->PrimFamily,
+          'MiddleName' => $individual->MiddleName,
+          'Title' => $individual->Title,
+          'LastName' => $individual->LastName,
+          'FirstName' => $individual->FirstName,
+          'PictureUrl' => $individual->PictureUrl,
+          'FamilyPosition' => $simple_person->FamilyPosition,
+          'Suffix' => $individual->Suffix,
+          'FullName' => $individual->FullName,
+          'FriendlyName' => $individual->FriendlyName,
+          'FamilyPictureUrl' => $individual->FamilyPictureUrl,
+          'DateOfBirth' => $individual->DateOfBirth,
+          'MemberStatus' => $individual->MemberStatus,
+        ))
+        ->execute();
 
-			if (is_array($individual->Addresses)) {
-				foreach ($individual->Addresses as $address) {
-					db_insert('accessacs_addresses')
-						->fields(array(
-							'IndvId' => $individual->IndvId,
-							'AddrId' => $address->AddrId,
-							'AddrType' => $address->AddrType,
-							'MailAddress' => $address->MailAddress,
-							'Address2' => $address->Address2,
-							'City' => $address->City,
-							'Address' => $address->Address,
-							'Longitude' => $address->Longitude,
-							'State' => $address->State,
-							'ActiveAddress' => $address->ActiveAddress,
-							'Zipcode' => $address->Zipcode,
-							'FamilyAddress' => $address->FamilyAddress,
-							'Country' => $address->Country,
-							'Company' => $address->Company,
-							'StatementAddress' => $address->StatementAddress,
-							'Latitude' => $address->Latitude,
-							'CityStateZip' => $address->CityStateZip,
-							'AddrTypeId' => $address->AddrTypeId,
-						))
-						->execute();
-				}
-			} else {
-				watchdog('ACSSync', 'Individual  of ID @id has a invalid Address array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
-			}
+      if (is_array($individual->Addresses)) {
+        foreach ($individual->Addresses as $address) {
+          db_insert('accessacs_addresses')
+            ->fields(array(
+              'IndvId' => $individual->IndvId,
+              'AddrId' => $address->AddrId,
+              'AddrType' => $address->AddrType,
+              'MailAddress' => $address->MailAddress,
+              'Address2' => $address->Address2,
+              'City' => $address->City,
+              'Address' => $address->Address,
+              'Longitude' => $address->Longitude,
+              'State' => $address->State,
+              'ActiveAddress' => $address->ActiveAddress,
+              'Zipcode' => $address->Zipcode,
+              'FamilyAddress' => $address->FamilyAddress,
+              'Country' => $address->Country,
+              'Company' => $address->Company,
+              'StatementAddress' => $address->StatementAddress,
+              'Latitude' => $address->Latitude,
+              'CityStateZip' => $address->CityStateZip,
+              'AddrTypeId' => $address->AddrTypeId,
+            ))
+            ->execute();
+        }
+      } else {
+        watchdog('ACSSync', 'Individual  of ID @id has a invalid Address array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
+      }
 
-			if (is_array($individual->Phones)) {
-				foreach ($individual->Phones as $phone) {
-					db_insert('accessacs_phone')
-						->fields(array(
-							'IndvId' => $individual->IndvId,
-							'PhoneId' => $phone->PhoneId,
-							'PhoneTypeId' => $phone->PhoneTypeId,
-							'PhoneRef' => $phone->PhoneRef,
-							'Listed' => $phone->Listed,
-							'PhoneNumber' => $phone->PhoneNumber,
-							'Preferred' => $phone->Preferred,
-							'FamilyPhone' => $phone->FamilyPhone,
-							'AddrPhone' => $phone->AddrPhone,
-							'Extension' => $phone->Extension,
-							'PhoneType' => $phone->PhoneType,
-						))
-						->execute();
-				}
-			} else {
-				watchdog('ACSSync', 'Individual  of ID @id has a invalid Phone Number array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
-			}
+      if (is_array($individual->Phones)) {
+        foreach ($individual->Phones as $phone) {
+          db_insert('accessacs_phone')
+            ->fields(array(
+              'IndvId' => $individual->IndvId,
+              'PhoneId' => $phone->PhoneId,
+              'PhoneTypeId' => $phone->PhoneTypeId,
+              'PhoneRef' => $phone->PhoneRef,
+              'Listed' => $phone->Listed,
+              'PhoneNumber' => $phone->PhoneNumber,
+              'Preferred' => $phone->Preferred,
+              'FamilyPhone' => $phone->FamilyPhone,
+              'AddrPhone' => $phone->AddrPhone,
+              'Extension' => $phone->Extension,
+              'PhoneType' => $phone->PhoneType,
+            ))
+            ->execute();
+        }
+      } else {
+        watchdog('ACSSync', 'Individual  of ID @id has a invalid Phone Number array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
+      }
 
-			if (is_array($individual->Emails)) {
-				foreach ($individual->Emails as $email) {
-					db_insert('accessacs_email')
-						->fields(array(
-							'IndvId' => $email->IndvId,
-							'EmailId' => $email->EmailId,
-							'Listed' => $email->Listed,
-							'Preferred' => $email->Preferred,
-							'EmailType' => $email->EmailType,
-							'Email' => $email->Email,
-						))
-						->execute();
-				}
-			} else {
-				watchdog('ACSSync', 'Individual  of ID @id has a invalid Email Address array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
-			}
+      if (is_array($individual->Emails)) {
+        foreach ($individual->Emails as $email) {
+          db_insert('accessacs_email')
+            ->fields(array(
+              'IndvId' => $email->IndvId,
+              'EmailId' => $email->EmailId,
+              'Listed' => $email->Listed,
+              'Preferred' => $email->Preferred,
+              'EmailType' => $email->EmailType,
+              'Email' => $email->Email,
+            ))
+            ->execute();
+        }
+      } else {
+        watchdog('ACSSync', 'Individual  of ID @id has a invalid Email Address array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
+      }
 
-			// Keep multiple records from inserting at the moment.
-			return;
-		}
-	} catch (Exception $e) {
-		$transaction->rollback();
-		watchdog('ACSSync', 'ACS Sync failed, database error: @message', array('@message' => $e->getMessage()), WATCHDOG_ERROR);
-	}
+      // Keep multiple records from inserting at the moment.
+      return;
+    }
+  } catch (Exception $e) {
+    $transaction->rollback();
+    watchdog('ACSSync', 'ACS Sync failed, database error: @message', array('@message' => $e->getMessage()), WATCHDOG_ERROR);
+  }
 
-	// $query = db_insert('accessacs_individuals')
-	// 	->fields(array(
-	// 		'IndvId',
-	// 		'FamId',
-	// 		'MiddleName',
-	// 		'GoesByName',
-	// 		'Title',
-	// 		'LastName',
-	// 		'FirstName',
-	// 		'PictureUrl',
-	// 		'FamilyPosition',
-	// 		'Suffix',
-	// 	));
+  // $query = db_insert('accessacs_individuals')
+  //  ->fields(array(
+  //    'IndvId',
+  //    'FamId',
+  //    'MiddleName',
+  //    'GoesByName',
+  //    'Title',
+  //    'LastName',
+  //    'FirstName',
+  //    'PictureUrl',
+  //    'FamilyPosition',
+  //    'Suffix',
+  //  ));
 
-	// foreach ($result->Page as $individual) {
-	// 	$query->values(array(
-	// 		'IndvId' => $individual->IndvId,
-	// 		'FamId' => $individual->FamId,
-	// 		'MiddleName' => $individual->MiddleName,
-	// 		'GoesByName' => $individual->GoesByName,
-	// 		'Title' => $individual->Title,
-	// 		'LastName' => $individual->LastName,
-	// 		'FirstName' => $individual->FirstName,
-	// 		'PictureUrl' => $individual->PictureUrl,
-	// 		'FamilyPosition' => $individual->FamilyPosition,
-	// 		'Suffix' => $individual->Suffix,
-	// 	));
-	// }
+  // foreach ($result->Page as $individual) {
+  //  $query->values(array(
+  //    'IndvId' => $individual->IndvId,
+  //    'FamId' => $individual->FamId,
+  //    'MiddleName' => $individual->MiddleName,
+  //    'GoesByName' => $individual->GoesByName,
+  //    'Title' => $individual->Title,
+  //    'LastName' => $individual->LastName,
+  //    'FirstName' => $individual->FirstName,
+  //    'PictureUrl' => $individual->PictureUrl,
+  //    'FamilyPosition' => $individual->FamilyPosition,
+  //    'Suffix' => $individual->Suffix,
+  //  ));
+  // }
 
-	// $out = $query->execute();
-	
+  // $out = $query->execute();
+  
 }
 
 
