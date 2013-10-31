@@ -80,7 +80,7 @@ function acssync_sync()
 		$result = $acsAPI->get_all_people(200);
 		// $result = $acsAPI->get_person(271);
 	} catch (Exception $e) {
-		drupal_set_message(t('ACS API returned an error: ' . $e->message, 'error'));
+		drupal_set_message(t('ACS API returned an error: ' . $e->getMessage(), 'error'));
 		return;
 	}
 
@@ -89,11 +89,14 @@ function acssync_sync()
 
 	try {
 		db_truncate('accessacs_individuals')->execute();
+		db_truncate('accessacs_addresses')->execute();
+		db_truncate('accessacs_phone')->execute();
+		db_truncate('accessacs_email')->execute();
 
 		foreach ($result->Page as $simple_person) {
 			$individual = $acsAPI->get_person($simple_person->IndvId);
 			// var_dump($individual);
-			$IndvId = db_insert('accessacs_individuals')
+			db_insert('accessacs_individuals')
 				->fields(array(
 					'IndvId' => $individual->IndvId,
 					'PrimFamily' => $individual->PrimFamily,
@@ -111,11 +114,38 @@ function acssync_sync()
 					'MemberStatus' => $individual->MemberStatus,
 				))
 				->execute();
+
+			foreach ($individual->Addresses as $address) {
+				db_insert('accessacs_addresses')
+					->fields(array(
+						'IndvId' => $individual->IndvId,
+						'AddrId' => $address->AddrId,
+						'AddrType' => $address->AddrType,
+						'MailAddress' => $address->MailAddress,
+						'Address2' => $address->Address2,
+						'City' => $address->City,
+						'Address' => $address->Address,
+						'Longitude' => $address->Longitude,
+						'State' => $address->State,
+						'ActiveAddress' => $address->ActiveAddress,
+						'Zipcode' => $address->Zipcode,
+						'FamilyAddress' => $address->FamilyAddress,
+						'Country' => $address->Country,
+						'Company' => $address->Company,
+						'StatementAddress' => $address->StatementAddress,
+						'Latitude' => $address->Latitude,
+						'CityStateZip' => $address->CityStateZip,
+						'AddrTypeId' => $address->AddrTypeId,
+					))
+					->execute();
+			}
+
+			// Keep multiple records from inserting at the moment.
 			return;
 		}
 	} catch (Exception $e) {
 		$transaction->rollback();
-		watchdog('ACSSync', 'ACS Sync failed, database error: %s', array($e->message), WATCHDOG_ERROR);
+		watchdog('ACSSync', 'ACS Sync failed, database error: @message', array('@message' => $e->getMessage()), WATCHDOG_ERROR);
 	}
 
 	// $query = db_insert('accessacs_individuals')
