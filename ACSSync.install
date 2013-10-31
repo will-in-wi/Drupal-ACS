@@ -1,6 +1,6 @@
 <?php
 
-function acs_sync_schema() {
+function acssync_schema() {
 	$schema['accessacs_individuals'] = array(
 		'description' => t('The base table for AccessACS Individuals'),
 		'fields' => array(
@@ -10,7 +10,7 @@ function acs_sync_schema() {
 				'unsigned' => TRUE,
 				'not null' => TRUE
 			),
-			'FamId' => array(
+			'PrimFamily' => array(
 				'description' => t('The primary identifier for a family'),
 				'type' => 'int',
 				'unsigned' => TRUE

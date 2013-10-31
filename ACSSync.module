@@ -84,9 +84,29 @@ function acssync_sync()
 		return;
 	}
 
+	db_truncate('accessacs_individuals')->execute();
+
 	foreach ($result->Page as $simple_person) {
 		$individual = $acsAPI->get_person($simple_person->IndvId);
-		var_dump($individual);
+		// var_dump($individual);
+		$nid = db_insert('accessacs_individuals')
+			->fields(array(
+				'IndvId' => $individual->IndvId,
+				'PrimFamily' => $individual->PrimFamily,
+				'MiddleName' => $individual->MiddleName,
+				'Title' => $individual->Title,
+				'LastName' => $individual->LastName,
+				'FirstName' => $individual->FirstName,
+				'PictureUrl' => $individual->PictureUrl,
+				'FamilyPosition' => $simple_person->FamilyPosition,
+				'Suffix' => $individual->Suffix,
+				'FullName' => $individual->FullName,
+				'FriendlyName' => $individual->FriendlyName,
+				'FamilyPictureUrl' => $individual->FamilyPictureUrl,
+				'DateOfBirth' => $individual->DateOfBirth,
+				'MemberStatus' => $individual->MemberStatus,
+			))
+			->execute();
 		return;
 	}
 
