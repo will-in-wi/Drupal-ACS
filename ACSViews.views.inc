@@ -1,7 +1,7 @@
 <?php
 
 function acsviews_views_data() {
-	$data = [
+	return [
 		'accessacs_individuals' => [
 			'table' => [
 				'group' => t('AccessACS Individuals'),
@@ -178,6 +178,4 @@ function acsviews_views_data() {
 			],
 		],
 	];
-
-	return $data;
 }
