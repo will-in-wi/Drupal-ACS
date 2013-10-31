@@ -1,13 +1,13 @@
 <?php
 
-function acs_sync_menu() {
+function acssync_menu() {
 	$items = array();
 
 	$items['admin/config/content/acs-sync'] = array(
 		'title' => 'AccessACS Sync Administration',
 		'description' => 'Configuration for AccessACS Sync',
 		'page callback' => 'drupal_get_form',
-		'page arguments' => array('acs_sync_admin_form'),
+		'page arguments' => array('acssync_admin_form'),
 		'access arguments' => array('administer accessacs'),
 		'type' => MENU_NORMAL_ITEM,
 	);
@@ -15,7 +15,7 @@ function acs_sync_menu() {
 	$items['acs-sync'] = array(
 		'title' => 'Sync AccessACS',
 		'description' => 'Sync AccessACS to Drupal Tables',
-		'page callback' => 'acs_sync_sync',
+		'page callback' => 'acssync_sync',
 		'access arguments' => array('administer accessacs'),
 		'type' => MENU_NORMAL_ITEM,
 	);
@@ -24,7 +24,7 @@ function acs_sync_menu() {
 }
 
 
-function acs_sync_permission() {
+function acssync_permission() {
 	return array(
 		'administer accessacs' => array(
 			'title' => t('Change core settings for AccessACS integration.'),
@@ -33,7 +33,7 @@ function acs_sync_permission() {
 }
 
 
-function acs_sync_admin_form($form, &$form_state) {
+function acssync_admin_form($form, &$form_state) {
 	$form['acs_site_number'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Site Number'),
@@ -61,7 +61,7 @@ function acs_sync_admin_form($form, &$form_state) {
 	return system_settings_form($form);
 }
 
-function acs_sync_sync()
+function acssync_sync()
 {
 	echo '<pre>hello world!!!';
 
@@ -79,10 +79,10 @@ function acs_sync_sync()
 		'pageSize' => 10,
 	];
 
-	$acs_sync = new Drupal\drupal_acs\Sync($site_number, $username, $password);
+	$acssync = new Drupal\ACSSync\Sync($site_number, $username, $password);
 
 	try {
-		$result = $acs_sync->api_call($query_params);
+		$result = $acssync->api_call($query_params);
 	} catch (Exception $e) {
 		drupal_set_message(t('ACS API returned an error', 'error'));
 		return;

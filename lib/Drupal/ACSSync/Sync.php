@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\drupal_acs\Sync;
+namespace Drupal\ACSSync;
 
 /**
 * ACS Sync Functions
