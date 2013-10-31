@@ -113,15 +113,31 @@ function acssync_schema() {
 		'primary key' => array('IndvId'),
 	);
 
-	$schema['accessacs_addresses'] = array(
-		'description' => t('AccessACS Individual addresses'),
-		'fields' => array(
+	$schema['accessacs_addresses_individual'] = [
+		'description' => t('AccessACS Join table for address to individuals.'),
+		'fields' => [
 			'IndvId' => array(
 				'description' => t('The primary identifier for an individual'),
 				'type' => 'int',
 				'unsigned' => TRUE,
 				'not null' => TRUE
 			),
+			'AddrId' => array(
+				'description' => t('The primary identifier for an address'),
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE
+			),
+		],
+		'unique keys' => array(
+			'AddrId' => array('AddrId', 'IndvId'),
+		),
+		'primary key' => array('AddrId', 'IndvId'),
+	];
+
+	$schema['accessacs_addresses'] = array(
+		'description' => t('AccessACS Individual addresses'),
+		'fields' => array(
 			'AddrId' => array(
 				'description' => t('The primary identifier for an address'),
 				'type' => 'int',
