@@ -1,5 +1,15 @@
 <?php
+/**
+ * @file
+ * The ACSSync module code
+ *
+ * Handles the core logic of syncing AccessACS stuff to Drupal tables.
+ */
 
+
+/**
+ * Implements hook_menu().
+ */
 function acssync_menu() {
   $items = array();
 
@@ -23,16 +33,28 @@ function acssync_menu() {
   return $items;
 }
 
-
+/**
+ * Implements hook_permission().
+ */
 function acssync_permission() {
   return array(
     'administer accessacs' => array(
       'title' => t('Change core settings for AccessACS integration.'),
-    )
+    ),
   );
 }
 
-
+/**
+ * Admin form callback.
+ *
+ * @param array  $form
+ *   Drupal form
+ * @param array  $form_state
+ *   Drupal form state
+ *
+ * @return array
+ *   Rendered form
+ */
 function acssync_admin_form($form, &$form_state) {
   $form['acs_site_number'] = array(
     '#type' => 'textfield',
@@ -61,8 +83,7 @@ function acssync_admin_form($form, &$form_state) {
   return system_settings_form($form);
 }
 
-function acssync_sync()
-{
+function acssync_sync() {
   echo '<pre>';
 
   $site_number = variable_get('acs_site_number');
@@ -74,12 +95,13 @@ function acssync_sync()
     return;
   }
 
-  $acsAPI = new Drupal\ACSSync\API($site_number, $username, $password);
+  $acs_api = new Drupal\ACSSync\API($site_number, $username, $password);
 
   try {
-    $result = $acsAPI->get_all_people(200);
-    // $result = $acsAPI->get_person(271);
-  } catch (Exception $e) {
+    $result = $acs_api->get_all_people(200);
+    // $result = $acs_api->get_person(271);
+  }
+  catch (Exception $e) {
     drupal_set_message(t('ACS API returned an error: ' . $e->getMessage(), 'error'));
     return;
   }
@@ -94,7 +116,7 @@ function acssync_sync()
     db_truncate('accessacs_email')->execute();
 
     foreach ($result->Page as $simple_person) {
-      $individual = $acsAPI->get_person($simple_person->IndvId);
+      $individual = $acs_api->get_person($simple_person->IndvId);
       // var_dump($individual);
       db_insert('accessacs_individuals')
         ->fields(array(
@@ -140,7 +162,8 @@ function acssync_sync()
             ))
             ->execute();
         }
-      } else {
+      }
+      else {
         watchdog('ACSSync', 'Individual  of ID @id has a invalid Address array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
       }
 
@@ -162,7 +185,8 @@ function acssync_sync()
             ))
             ->execute();
         }
-      } else {
+      }
+      else {
         watchdog('ACSSync', 'Individual  of ID @id has a invalid Phone Number array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
       }
 
@@ -179,14 +203,16 @@ function acssync_sync()
             ))
             ->execute();
         }
-      } else {
+      }
+      else {
         watchdog('ACSSync', 'Individual  of ID @id has a invalid Email Address array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
       }
 
       // Keep multiple records from inserting at the moment.
       return;
     }
-  } catch (Exception $e) {
+  }
+  catch (Exception $e) {
     $transaction->rollback();
     watchdog('ACSSync', 'ACS Sync failed, database error: @message', array('@message' => $e->getMessage()), WATCHDOG_ERROR);
   }
