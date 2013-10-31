@@ -13,8 +13,8 @@ function acsviews_views_data() {
 				],
 			],
 			'IndvId' => [
-				'title' => t('IndvId'),
-				'help' => t('IndvId'),
+				'title' => t('Individual ID'),
+				'help' => t('Individual ID'),
 				'field' => [
 					'handler' => 'views_handler_field_numeric',
 					'click sortable' => true,
@@ -27,8 +27,8 @@ function acsviews_views_data() {
 				],
 			],
 			'FamId' => [
-				'title' => t('FamId'),
-				'help' => t('FamId'),
+				'title' => t('Family ID'),
+				'help' => t('Family ID'),
 				'field' => [
 					'handler' => 'views_handler_field_numeric',
 					'click sortable' => true,
@@ -41,8 +41,8 @@ function acsviews_views_data() {
 				],
 			],
 			'MiddleName' => [
-				'title' => t('MiddleName'),
-				'help' => t('MiddleName'),
+				'title' => t('Middle Name'),
+				'help' => t('Middle Name'),
 				'field' => [
 					'handler' => 'views_handler_field',
 					'click sortable' => true,
@@ -58,8 +58,8 @@ function acsviews_views_data() {
 				],
 			],
 			'GoesByName' => [
-				'title' => t('GoesByName'),
-				'help' => t('GoesByName'),
+				'title' => t('Goes By Name'),
+				'help' => t('Goes By Name'),
 				'field' => [
 					'handler' => 'views_handler_field',
 					'click sortable' => true,
@@ -92,8 +92,8 @@ function acsviews_views_data() {
 				],
 			],
 			'LastName' => [
-				'title' => t('LastName'),
-				'help' => t('LastName'),
+				'title' => t('Last Name'),
+				'help' => t('Last Name'),
 				'field' => [
 					'handler' => 'views_handler_field',
 					'click sortable' => true,
@@ -109,8 +109,8 @@ function acsviews_views_data() {
 				],
 			],
 			'FirstName' => [
-				'title' => t('FirstName'),
-				'help' => t('FirstName'),
+				'title' => t('First Name'),
+				'help' => t('First Name'),
 				'field' => [
 					'handler' => 'views_handler_field',
 					'click sortable' => true,
@@ -126,8 +126,8 @@ function acsviews_views_data() {
 				],
 			],
 			'PictureUrl' => [
-				'title' => t('PictureUrl'),
-				'help' => t('PictureUrl'),
+				'title' => t('Picture URL'),
+				'help' => t('Picture URL'),
 				'field' => [
 					'handler' => 'views_handler_field',
 					'click sortable' => true,
@@ -143,8 +143,8 @@ function acsviews_views_data() {
 				],
 			],
 			'FamilyPosition' => [
-				'title' => t('FamilyPosition'),
-				'help' => t('FamilyPosition'),
+				'title' => t('Family Position'),
+				'help' => t('Family Position'),
 				'field' => [
 					'handler' => 'views_handler_field',
 					'click sortable' => true,
