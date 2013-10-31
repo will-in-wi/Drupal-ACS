@@ -1,0 +1,8 @@
+name = ACS Views
+description = Exposes the syncronized ACS data to Views
+core = 7.x
+package = ACS
+files[] = ACSViews.module
+dependencies[] = ACSSync
+dependencies[] = xautoload
+php = 5.4
