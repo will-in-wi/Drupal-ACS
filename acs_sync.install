@@ -1,2 +1,319 @@
 <?php
 
+function acs_sync_schema() {
+	$schema['accessacs_individuals'] = array(
+		'description' => t('The base table for AccessACS Individuals'),
+		'fields' => array(
+			'IndvId' => array(
+				'description' => t('The primary identifier for an individual'),
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE
+			),
+			'FamId' => array(
+				'description' => t('The primary identifier for a family'),
+				'type' => 'int',
+				'unsigned' => TRUE
+			),
+ 			'MiddleName' => array(
+				'description' => t('The middle name of this individual'),
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'GoesByName' => array(
+				'description' => t('The commonly used name for this individual'),
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'Title' => array(
+				'description' => t('The title for this individual'),
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'LastName' => array(
+				'description' => t('The LastName for this individual'),
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'FirstName' => array(
+				'description' => t('The FirstName for this individual'),
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'PictureUrl' => array(
+				'description' => t('The PictureUrl for this individual'),
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'FamilyPosition' => array(
+				'description' => t('The FamilyPosition for this individual'),
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'Suffix' => array(
+				'description' => t('The Suffix for this individual'),
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+		),
+		'unique keys' => array(
+			'IndvId' => array('IndvId')
+		),
+		'primary key' => array('IndvId'),
+	);
+
+	$schema['accessacs_addresses'] = array(
+		'description' => t('AccessACS Individual addresses'),
+		'fields' => array(
+			'IndvId' => array(
+				'description' => t('The primary identifier for an individual'),
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE
+			),
+			'AddrId' => array(
+				'description' => t('The primary identifier for an address'),
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE
+			),
+			'AddrType' => array(
+				'description' => t('The address type'),
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => TRUE,
+				'default' => ''
+			),
+            'MailAddress' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+            'Address2' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'City' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'Address' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'Longitude' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'State' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'ActiveAddress' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+            'Zipcode' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'FamilyAddress' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+            'Country' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'Company' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'StatementAddress' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+            'Latitude' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'CityStateZip' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'AddrTypeId' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => FALSE
+			),
+		),
+		'unique keys' => array(
+			'AddrId' => array('AddrId')
+		),
+		'primary key' => array('AddrId'),
+	);
+
+	$schema['accessacs_phone'] = array(
+		'description' => t('AccessACS Individual phone numbers'),
+		'fields' => array(
+			'IndvId' => array(
+				'description' => t('The primary identifier for an individual'),
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE
+			),
+			'PhoneId' => array(
+				'description' => t('The primary identifier for a phone number'),
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE
+			),
+			'PhoneTypeId' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => FALSE
+			),
+            'PhoneRef' => array(
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => FALSE
+			),
+            'Listed' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+            'PhoneNumber' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => TRUE,
+				'default' => ''
+			),
+            'Preferred' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+            'FamilyPhone' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+            'AddrPhone' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+            'Extension' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+            'PhoneType' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+		),
+		'unique keys' => array(
+			'PhoneId' => array('PhoneId')
+		),
+		'primary key' => array('PhoneId'),
+	);
+
+	$schema['accessacs_email'] = array(
+		'description' => t('AccessACS Individual email addresses'),
+		'fields' => array(
+			'IndvId' => array(
+				'description' => t('The primary identifier for an individual'),
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE
+			),
+			'EmailId' => array(
+				'description' => t('The primary identifier for a phone number'),
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE
+			),
+			'Listed' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+			'Preferred' => array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,
+			),
+			'EmailType' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+			'Email' => array(
+				'type' => 'varchar',
+				'length' => 32,
+				'not null' => FALSE,
+				'default' => ''
+			),
+		),
+		'unique keys' => array(
+			'EmailId' => array('EmailId')
+		),
+		'primary key' => array('EmailId'),
+	);
+	return $schema;
+}

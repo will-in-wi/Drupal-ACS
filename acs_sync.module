@@ -1,2 +1,60 @@
 <?php
 
+function acs_sync_menu() {
+	$items = array();
+
+	$items['admin/config/content/acs-sync'] = array(
+		'title' => 'AccessACS Sync Administration',
+		'description' => 'Configuration for AccessACS Sync',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('acs_sync_admin_form'),
+		'access arguments' => array('administer accessacs'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	return $items;
+}
+
+
+function acs_sync_permission() {
+	return array(
+		'administer accessacs' => array(
+			'title' => t('Change core settings for AccessACS integration.'),
+		)
+	);
+}
+
+
+function acs_sync_admin_form($form, &$form_state) {
+	$form['acs_site_number'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Site Number'),
+		'#default_value' => variable_get('acs_site_number', ''),
+		// '#description' => t('The AccessACS site number'),
+		'#required' => TRUE,
+	);
+
+	$form['acs_username'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Site Number'),
+		'#default_value' => variable_get('acs_username', ''),
+		// '#description' => t('The AccessACS site number'),
+		'#required' => TRUE,
+	);
+
+	$form['acs_password'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Site Number'),
+		'#default_value' => variable_get('acs_password', ''),
+		// '#description' => t('The AccessACS site number'),
+		'#required' => TRUE,
+	);
+
+	return system_settings_form($form);
+}
+
+
+
+// TODO: Create Schema
+// TODO: Sync Tables
+// TODO: Views Integration
