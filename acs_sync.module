@@ -54,7 +54,5 @@ function acs_sync_admin_form($form, &$form_state) {
 }
 
 
-
-// TODO: Create Schema
 // TODO: Sync Tables
 // TODO: Views Integration
