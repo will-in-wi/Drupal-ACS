@@ -115,29 +115,72 @@ function acssync_sync()
 				))
 				->execute();
 
-			foreach ($individual->Addresses as $address) {
-				db_insert('accessacs_addresses')
-					->fields(array(
-						'IndvId' => $individual->IndvId,
-						'AddrId' => $address->AddrId,
-						'AddrType' => $address->AddrType,
-						'MailAddress' => $address->MailAddress,
-						'Address2' => $address->Address2,
-						'City' => $address->City,
-						'Address' => $address->Address,
-						'Longitude' => $address->Longitude,
-						'State' => $address->State,
-						'ActiveAddress' => $address->ActiveAddress,
-						'Zipcode' => $address->Zipcode,
-						'FamilyAddress' => $address->FamilyAddress,
-						'Country' => $address->Country,
-						'Company' => $address->Company,
-						'StatementAddress' => $address->StatementAddress,
-						'Latitude' => $address->Latitude,
-						'CityStateZip' => $address->CityStateZip,
-						'AddrTypeId' => $address->AddrTypeId,
-					))
-					->execute();
+			if (is_array($individual->Addresses)) {
+				foreach ($individual->Addresses as $address) {
+					db_insert('accessacs_addresses')
+						->fields(array(
+							'IndvId' => $individual->IndvId,
+							'AddrId' => $address->AddrId,
+							'AddrType' => $address->AddrType,
+							'MailAddress' => $address->MailAddress,
+							'Address2' => $address->Address2,
+							'City' => $address->City,
+							'Address' => $address->Address,
+							'Longitude' => $address->Longitude,
+							'State' => $address->State,
+							'ActiveAddress' => $address->ActiveAddress,
+							'Zipcode' => $address->Zipcode,
+							'FamilyAddress' => $address->FamilyAddress,
+							'Country' => $address->Country,
+							'Company' => $address->Company,
+							'StatementAddress' => $address->StatementAddress,
+							'Latitude' => $address->Latitude,
+							'CityStateZip' => $address->CityStateZip,
+							'AddrTypeId' => $address->AddrTypeId,
+						))
+						->execute();
+				}
+			} else {
+				watchdog('ACSSync', 'Individual  of ID @id has a invalid Address array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
+			}
+
+			if (is_array($individual->Phones)) {
+				foreach ($individual->Phones as $phone) {
+					db_insert('accessacs_phone')
+						->fields(array(
+							'IndvId' => $individual->IndvId,
+							'PhoneId' => $phone->PhoneId,
+							'PhoneTypeId' => $phone->PhoneTypeId,
+							'PhoneRef' => $phone->PhoneRef,
+							'Listed' => $phone->Listed,
+							'PhoneNumber' => $phone->PhoneNumber,
+							'Preferred' => $phone->Preferred,
+							'FamilyPhone' => $phone->FamilyPhone,
+							'AddrPhone' => $phone->AddrPhone,
+							'Extension' => $phone->Extension,
+							'PhoneType' => $phone->PhoneType,
+						))
+						->execute();
+				}
+			} else {
+				watchdog('ACSSync', 'Individual  of ID @id has a invalid Phone Number array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
+			}
+
+			if (is_array($individual->Emails)) {
+				foreach ($individual->Emails as $email) {
+					db_insert('accessacs_email')
+						->fields(array(
+							'IndvId' => $email->IndvId,
+							'EmailId' => $email->EmailId,
+							'Listed' => $email->Listed,
+							'Preferred' => $email->Preferred,
+							'EmailType' => $email->EmailType,
+							'Email' => $email->Email,
+						))
+						->execute();
+				}
+			} else {
+				watchdog('ACSSync', 'Individual  of ID @id has a invalid Email Address array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
 			}
 
 			// Keep multiple records from inserting at the moment.
@@ -178,8 +221,6 @@ function acssync_sync()
 	// }
 
 	// $out = $query->execute();
-
-	var_dump($result);
 	
 }
 
