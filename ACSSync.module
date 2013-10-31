@@ -84,6 +84,12 @@ function acssync_sync()
 		return;
 	}
 
+	foreach ($result->Page as $simple_person) {
+		$individual = $acsAPI->get_person($simple_person->IndvId);
+		var_dump($individual);
+		return;
+	}
+
 	// $query = db_insert('accessacs_individuals')
 	// 	->fields(array(
 	// 		'IndvId',
