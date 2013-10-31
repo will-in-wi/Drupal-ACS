@@ -63,7 +63,38 @@ function acs_sync_admin_form($form, &$form_state) {
 
 function acs_sync_sync()
 {
-	echo 'hello world!!!';
+	echo '<pre>hello world!!!';
+
+	$site_number = variable_get('acs_site_number');
+	$username = variable_get('acs_username');
+	$password = variable_get('acs_password');
+
+	if (empty($site_number) || empty($username) || empty($password)) {
+		drupal_set_message(t('ACS auth settings not set.'), 'error');
+		return;
+	}
+
+	$query_params = [
+		'q' => '%',
+		'pageSize' => 10,
+	];
+
+	$headers = [
+		'Authorization' => 'Basic ' . base64_encode($username . ':' . $password),
+	];
+
+	// Get the first page of results.
+	$result = drupal_http_request('https://secure.accessacs.com/api_accessacs_mobile/v2/' . $site_number . '/individuals?' . http_build_query($query_params), [
+		'headers' => $headers,
+	]);
+
+	if ($result->code != 200) {
+		drupal_set_message(t('ACS API returned an error ' . $result->code), 'error');
+		return;
+	}
+
+	var_dump(json_decode($result->data));
+	
 }
 
 
