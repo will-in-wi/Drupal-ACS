@@ -253,6 +253,7 @@ function acssync_schema() {
 			),
             'PhoneRef' => array(
 				'type' => 'int',
+				'size' => 'big',
 				'unsigned' => TRUE,
 				'not null' => false
 			),
