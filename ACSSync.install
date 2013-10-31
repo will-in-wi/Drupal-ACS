@@ -338,15 +338,31 @@ function acssync_schema() {
 		'primary key' => array('PhoneId'),
 	);
 
-	$schema['accessacs_email'] = array(
-		'description' => t('AccessACS Individual email addresses'),
-		'fields' => array(
+	$schema['accessacs_email_individual'] = [
+		'description' => t('AccessACS Join table for email to individuals.'),
+		'fields' => [
 			'IndvId' => array(
 				'description' => t('The primary identifier for an individual'),
 				'type' => 'int',
 				'unsigned' => TRUE,
 				'not null' => TRUE
 			),
+			'EmailId' => array(
+				'description' => t('The primary identifier for an email'),
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE
+			),
+		],
+		'unique keys' => array(
+			'EmailId' => array('EmailId', 'IndvId'),
+		),
+		'primary key' => array('EmailId', 'IndvId'),
+	];
+
+	$schema['accessacs_email'] = array(
+		'description' => t('AccessACS Individual email addresses'),
+		'fields' => array(
 			'EmailId' => array(
 				'description' => t('The primary identifier for a phone number'),
 				'type' => 'int',
