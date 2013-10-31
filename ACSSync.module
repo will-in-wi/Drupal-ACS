@@ -146,5 +146,10 @@ function acssync_sync()
 }
 
 
-// TODO: Sync Tables
-// TODO: Views Integration
+// TODO: Insert records into child tables.
+// TODO: Expose child tables to views.
+// TODO: Set up relationships in views.
+// TODO: Abstract sync code into its own class.
+// TODO: Create manual form for syncing data.
+// TODO: Consider using the long process API for this.
+// TODO: Create the ability to run this on a cron job.
