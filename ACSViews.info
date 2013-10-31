@@ -5,4 +5,5 @@ package = ACS
 files[] = ACSViews.module
 dependencies[] = ACSSync
 dependencies[] = xautoload
+dependencies[] = views
 php = 5.4
