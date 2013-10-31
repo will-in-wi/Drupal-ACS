@@ -74,15 +74,11 @@ function acssync_sync()
 		return;
 	}
 
-	$query_params = [
-		'q' => '%',
-		'pageSize' => 10,
-	];
-
-	$acssync = new Drupal\ACSSync\Sync($site_number, $username, $password);
+	$acsAPI = new Drupal\ACSSync\API($site_number, $username, $password);
 
 	try {
-		$result = $acssync->api_call($query_params);
+		// $result = $acsAPI->get_all_people(200);
+		$result = $acsAPI->get_person(271);
 	} catch (Exception $e) {
 		drupal_set_message(t('ACS API returned an error: ' . $e->message, 'error'));
 		return;

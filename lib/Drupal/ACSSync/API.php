@@ -3,9 +3,9 @@
 namespace Drupal\ACSSync;
 
 /**
-* ACS Sync Functions
+* ACS API Functions
 */
-class Sync {
+class API {
 	protected $site_number;
 	protected $username;
 	protected $password;
