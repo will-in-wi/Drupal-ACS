@@ -147,6 +147,7 @@ function acssync_sync()
 
 
 // TODO: Insert records into child tables.
+// TODO: Sync views fields with table fields.
 // TODO: Expose child tables to views.
 // TODO: Set up relationships in views.
 // TODO: Abstract sync code into its own class.
