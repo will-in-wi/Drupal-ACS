@@ -63,7 +63,7 @@ function acssync_admin_form($form, &$form_state) {
 
 function acssync_sync()
 {
-	echo '<pre>hello world!!!';
+	echo '<pre>';
 
 	$site_number = variable_get('acs_site_number');
 	$username = variable_get('acs_username');
@@ -77,14 +77,45 @@ function acssync_sync()
 	$acsAPI = new Drupal\ACSSync\API($site_number, $username, $password);
 
 	try {
-		// $result = $acsAPI->get_all_people(200);
-		$result = $acsAPI->get_person(271);
+		$result = $acsAPI->get_all_people(200);
+		// $result = $acsAPI->get_person(271);
 	} catch (Exception $e) {
 		drupal_set_message(t('ACS API returned an error: ' . $e->message, 'error'));
 		return;
 	}
 
-	var_dump(json_decode($result));
+	// $query = db_insert('accessacs_individuals')
+	// 	->fields(array(
+	// 		'IndvId',
+	// 		'FamId',
+	// 		'MiddleName',
+	// 		'GoesByName',
+	// 		'Title',
+	// 		'LastName',
+	// 		'FirstName',
+	// 		'PictureUrl',
+	// 		'FamilyPosition',
+	// 		'Suffix',
+	// 	));
+
+	// foreach ($result->Page as $individual) {
+	// 	$query->values(array(
+	// 		'IndvId' => $individual->IndvId,
+	// 		'FamId' => $individual->FamId,
+	// 		'MiddleName' => $individual->MiddleName,
+	// 		'GoesByName' => $individual->GoesByName,
+	// 		'Title' => $individual->Title,
+	// 		'LastName' => $individual->LastName,
+	// 		'FirstName' => $individual->FirstName,
+	// 		'PictureUrl' => $individual->PictureUrl,
+	// 		'FamilyPosition' => $individual->FamilyPosition,
+	// 		'Suffix' => $individual->Suffix,
+	// 	));
+	// }
+
+	// $out = $query->execute();
+
+	var_dump($result);
 	
 }
 

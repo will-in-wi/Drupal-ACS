@@ -31,7 +31,7 @@ class API {
 			return;
 		}
 
-		return $result->data;
+		return json_decode($result->data);
 	}
 
 	public function get_people($query, $limit=10, $page=1) {
