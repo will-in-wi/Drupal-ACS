@@ -84,7 +84,7 @@ function acssync_sync()
 	try {
 		$result = $acssync->api_call($query_params);
 	} catch (Exception $e) {
-		drupal_set_message(t('ACS API returned an error', 'error'));
+		drupal_set_message(t('ACS API returned an error: ' . $e->message, 'error'));
 		return;
 	}
 
