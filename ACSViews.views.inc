@@ -16,34 +16,28 @@ function acsviews_views_data() {
 				'title' => t('IndvId'),
 				'help' => t('IndvId'),
 				'field' => [
-					'handler' => 'views_handler_field',
+					'handler' => 'views_handler_field_numeric',
 					'click sortable' => true,
 				],
 				'filter' => [
-					'handler' => 'views_handler_filter_string',
+					'handler' => 'views_handler_filter_numeric',
 				],
 				'sort' => [
 					'handler' => 'views_handler_sort',
-				],
-				'argument' => [
-					'handler' => 'views_handler_argument_string',
 				],
 			],
 			'FamId' => [
 				'title' => t('FamId'),
 				'help' => t('FamId'),
 				'field' => [
-					'handler' => 'views_handler_field',
+					'handler' => 'views_handler_field_numeric',
 					'click sortable' => true,
 				],
 				'filter' => [
-					'handler' => 'views_handler_filter_string',
+					'handler' => 'views_handler_filter_numeric',
 				],
 				'sort' => [
 					'handler' => 'views_handler_sort',
-				],
-				'argument' => [
-					'handler' => 'views_handler_argument_string',
 				],
 			],
 			'MiddleName' => [
