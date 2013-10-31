@@ -12,6 +12,14 @@ function acs_sync_menu() {
 		'type' => MENU_NORMAL_ITEM,
 	);
 
+	$items['acs-sync'] = array(
+		'title' => 'Sync AccessACS',
+		'description' => 'Sync AccessACS to Drupal Tables',
+		'page callback' => 'acs_sync_sync',
+		'access arguments' => array('administer accessacs'),
+		'type' => MENU_NORMAL_ITEM,
+	);
+
 	return $items;
 }
 
@@ -51,6 +59,11 @@ function acs_sync_admin_form($form, &$form_state) {
 	);
 
 	return system_settings_form($form);
+}
+
+function acs_sync_sync()
+{
+	echo 'hello world!!!';
 }
 
 
