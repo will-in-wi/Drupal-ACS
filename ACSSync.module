@@ -83,6 +83,9 @@ function acssync_admin_form($form, &$form_state) {
   return system_settings_form($form);
 }
 
+/**
+ * Callback for sync page.
+ */
 function acssync_sync() {
   echo '<pre>';
 
@@ -102,11 +105,11 @@ function acssync_sync() {
     // $result = $acs_api->get_person(271);
   }
   catch (Exception $e) {
-    drupal_set_message(t('ACS API returned an error: ' . $e->getMessage(), 'error'));
+    drupal_set_message(t('ACS API returned an error: @error', array('@error' => $e->getMessage())), 'error');
     return;
   }
 
-  // Start new transaction
+  // Start new transaction.
   $transaction = db_transaction();
 
   try {
@@ -217,45 +220,16 @@ function acssync_sync() {
     watchdog('ACSSync', 'ACS Sync failed, database error: @message', array('@message' => $e->getMessage()), WATCHDOG_ERROR);
   }
 
-  // $query = db_insert('accessacs_individuals')
-  //  ->fields(array(
-  //    'IndvId',
-  //    'FamId',
-  //    'MiddleName',
-  //    'GoesByName',
-  //    'Title',
-  //    'LastName',
-  //    'FirstName',
-  //    'PictureUrl',
-  //    'FamilyPosition',
-  //    'Suffix',
-  //  ));
-
-  // foreach ($result->Page as $individual) {
-  //  $query->values(array(
-  //    'IndvId' => $individual->IndvId,
-  //    'FamId' => $individual->FamId,
-  //    'MiddleName' => $individual->MiddleName,
-  //    'GoesByName' => $individual->GoesByName,
-  //    'Title' => $individual->Title,
-  //    'LastName' => $individual->LastName,
-  //    'FirstName' => $individual->FirstName,
-  //    'PictureUrl' => $individual->PictureUrl,
-  //    'FamilyPosition' => $individual->FamilyPosition,
-  //    'Suffix' => $individual->Suffix,
-  //  ));
-  // }
-
-  // $out = $query->execute();
-  
 }
 
 
-// TODO: Insert records into child tables.
-// TODO: Sync views fields with table fields.
-// TODO: Expose child tables to views.
-// TODO: Set up relationships in views.
-// TODO: Abstract sync code into its own class.
-// TODO: Create manual form for syncing data.
-// TODO: Consider using the long process API for this.
-// TODO: Create the ability to run this on a cron job.
+/**
+ * TODO: Insert records into child tables.
+ * TODO: Sync views fields with table fields.
+ * TODO: Expose child tables to views.
+ * TODO: Set up relationships in views.
+ * TODO: Abstract sync code into its own class.
+ * TODO: Create manual form for syncing data.
+ * TODO: Consider using the long process API for this.
+ * TODO: Create the ability to run this on a cron job.
+ */
