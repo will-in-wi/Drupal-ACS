@@ -1,5 +1,13 @@
 <?php
+/**
+ * @file
+ * The ACSSync database definitions
+ */
 
+
+/**
+ * Implements hook_schema().
+ */
 function acssync_schema() {
   $schema['accessacs_individuals'] = array(
     'description' => t('The base table for AccessACS Individuals'),
@@ -8,107 +16,107 @@ function acssync_schema() {
         'description' => t('The primary identifier for an individual'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
       'PrimFamily' => array(
         'description' => t('The primary identifier for a family'),
         'type' => 'int',
-        'unsigned' => TRUE
+        'unsigned' => TRUE,
       ),
       'MiddleName' => array(
         'description' => t('The middle name of this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'GoesByName' => array(
+      'GoesByName' => array(
         'description' => t('The commonly used name for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'Title' => array(
+      'Title' => array(
         'description' => t('The title for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'LastName' => array(
+      'LastName' => array(
         'description' => t('The LastName for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'FirstName' => array(
+      'FirstName' => array(
         'description' => t('The FirstName for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'PictureUrl' => array(
+      'PictureUrl' => array(
         'description' => t('The PictureUrl for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'FamilyPosition' => array(
+      'FamilyPosition' => array(
         'description' => t('The FamilyPosition for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'Suffix' => array(
+      'Suffix' => array(
         'description' => t('The Suffix for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
       'FullName' => array(
         'description' => t('The FullName for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
+        'not null' => FALSE,
         'default' => '',
       ),
       'FriendlyName' => array(
         'description' => t('The FriendlyName for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
+        'not null' => FALSE,
         'default' => '',
       ),
       'FamilyPictureUrl' => array(
         'description' => t('The FamilyPictureUrl for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
+        'not null' => FALSE,
         'default' => '',
       ),
       'DateOfBirth' => array(
         'description' => t('The DateOfBirth for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
+        'not null' => FALSE,
         'default' => '',
       ),
       'MemberStatus' => array(
         'description' => t('The MemberStatus for this individual'),
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
+        'not null' => FALSE,
         'default' => '',
       ),
     ),
     'unique keys' => array(
-      'IndvId' => array('IndvId')
+      'IndvId' => array('IndvId'),
     ),
     'primary key' => array('IndvId'),
   );
@@ -120,13 +128,13 @@ function acssync_schema() {
         'description' => t('The primary identifier for an individual'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
       'AddrId' => array(
         'description' => t('The primary identifier for an address'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
     ],
     'unique keys' => array(
@@ -142,107 +150,107 @@ function acssync_schema() {
         'description' => t('The primary identifier for an address'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
       'AddrType' => array(
         'description' => t('The address type'),
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
-        'default' => ''
+        'default' => '',
       ),
-            'MailAddress' => array(
+      'MailAddress' => array(
         'type' => 'int',
         'size' => 'tiny',
         'not null' => TRUE,
         'default' => 0,
       ),
-            'Address2' => array(
+      'Address2' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'City' => array(
+      'City' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'Address' => array(
+      'Address' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'Longitude' => array(
+      'Longitude' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'State' => array(
+      'State' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'ActiveAddress' => array(
+      'ActiveAddress' => array(
         'type' => 'int',
         'size' => 'tiny',
         'not null' => TRUE,
         'default' => 0,
       ),
-            'Zipcode' => array(
+      'Zipcode' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'FamilyAddress' => array(
+      'FamilyAddress' => array(
         'type' => 'int',
         'size' => 'tiny',
         'not null' => TRUE,
         'default' => 0,
       ),
-            'Country' => array(
+      'Country' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'Company' => array(
+      'Company' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'StatementAddress' => array(
+      'StatementAddress' => array(
         'type' => 'int',
         'size' => 'tiny',
         'not null' => TRUE,
         'default' => 0,
       ),
-            'Latitude' => array(
+      'Latitude' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'CityStateZip' => array(
+      'CityStateZip' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'AddrTypeId' => array(
+      'AddrTypeId' => array(
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => false
+        'not null' => FALSE,
       ),
     ),
     'unique keys' => array(
-      'AddrId' => array('AddrId')
+      'AddrId' => array('AddrId'),
     ),
     'primary key' => array('AddrId'),
   );
@@ -254,13 +262,13 @@ function acssync_schema() {
         'description' => t('The primary identifier for an individual'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
       'PhoneId' => array(
         'description' => t('The primary identifier for an phone'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
     ],
     'unique keys' => array(
@@ -276,64 +284,64 @@ function acssync_schema() {
         'description' => t('The primary identifier for a phone number'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
       'PhoneTypeId' => array(
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => false
+        'not null' => FALSE,
       ),
-            'PhoneRef' => array(
+      'PhoneRef' => array(
         'type' => 'int',
         'size' => 'big',
         'unsigned' => TRUE,
-        'not null' => false
+        'not null' => FALSE,
       ),
-            'Listed' => array(
+      'Listed' => array(
         'type' => 'int',
         'size' => 'tiny',
         'not null' => TRUE,
         'default' => 0,
       ),
-            'PhoneNumber' => array(
+      'PhoneNumber' => array(
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
-        'default' => ''
+        'default' => '',
       ),
-            'Preferred' => array(
+      'Preferred' => array(
         'type' => 'int',
         'size' => 'tiny',
         'not null' => TRUE,
         'default' => 0,
       ),
-            'FamilyPhone' => array(
+      'FamilyPhone' => array(
         'type' => 'int',
         'size' => 'tiny',
         'not null' => TRUE,
         'default' => 0,
       ),
-            'AddrPhone' => array(
+      'AddrPhone' => array(
         'type' => 'int',
         'size' => 'tiny',
         'not null' => TRUE,
         'default' => 0,
       ),
-            'Extension' => array(
+      'Extension' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
-            'PhoneType' => array(
+      'PhoneType' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
     ),
     'unique keys' => array(
-      'PhoneId' => array('PhoneId')
+      'PhoneId' => array('PhoneId'),
     ),
     'primary key' => array('PhoneId'),
   );
@@ -345,13 +353,13 @@ function acssync_schema() {
         'description' => t('The primary identifier for an individual'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
       'EmailId' => array(
         'description' => t('The primary identifier for an email'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
     ],
     'unique keys' => array(
@@ -367,7 +375,7 @@ function acssync_schema() {
         'description' => t('The primary identifier for a phone number'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
       'Listed' => array(
         'type' => 'int',
@@ -384,18 +392,18 @@ function acssync_schema() {
       'EmailType' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
       'Email' => array(
         'type' => 'varchar',
         'length' => 255,
-        'not null' => false,
-        'default' => ''
+        'not null' => FALSE,
+        'default' => '',
       ),
     ),
     'unique keys' => array(
-      'EmailId' => array('EmailId')
+      'EmailId' => array('EmailId'),
     ),
     'primary key' => array('EmailId'),
   );
