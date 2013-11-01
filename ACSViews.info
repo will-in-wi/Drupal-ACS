@@ -3,6 +3,7 @@ description = Exposes the syncronized ACS data to Views
 core = 7.x
 package = ACS
 files[] = ACSViews.module
+files[] = ACSViews.views.inc
 dependencies[] = ACSSync
 dependencies[] = xautoload
 dependencies[] = views
