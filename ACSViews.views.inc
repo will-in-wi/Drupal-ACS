@@ -184,5 +184,333 @@ function acsviews_views_data() {
         ],
       ],
     ],
+    'accessacs_addresses' => [
+      'table' => [
+        'group' => t('AccessACS Individuals'),
+        'base' => [
+          'field' => 'AddrId',
+          'title' => t('AccessACS Addresses'),
+          'help' => t('AccessACS Addresses'),
+          'weight' => -10,
+        ],
+      ],
+      'AddrId' => [
+        'title' => t('AddrId'),
+        'help' => t('AddrId'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'AddrType' => [
+        'title' => t('AddrType'),
+        'help' => t('AddrType'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'MailAddress' => [
+        'title' => t('MailAddress'),
+        'help' => t('MailAddress'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Address2' => [
+        'title' => t('Address2'),
+        'help' => t('Address2'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'City' => [
+        'title' => t('City'),
+        'help' => t('City'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Address' => [
+        'title' => t('Address'),
+        'help' => t('Address'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Longitude' => [
+        'title' => t('Longitude'),
+        'help' => t('Longitude'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'State' => [
+        'title' => t('State'),
+        'help' => t('State'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'ActiveAddress' => [
+        'title' => t('ActiveAddress'),
+        'help' => t('ActiveAddress'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Zipcode' => [
+        'title' => t('Zipcode'),
+        'help' => t('Zipcode'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'FamilyAddress' => [
+        'title' => t('FamilyAddress'),
+        'help' => t('FamilyAddress'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Country' => [
+        'title' => t('Country'),
+        'help' => t('Country'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Company' => [
+        'title' => t('Company'),
+        'help' => t('Company'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'StatementAddress' => [
+        'title' => t('StatementAddress'),
+        'help' => t('StatementAddress'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Latitude' => [
+        'title' => t('Latitude'),
+        'help' => t('Latitude'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'CityStateZip' => [
+        'title' => t('CityStateZip'),
+        'help' => t('CityStateZip'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'AddrTypeId' => [
+        'title' => t('AddrTypeId'),
+        'help' => t('AddrTypeId'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+    ],
+    'accessacs_addresses_individual' => [
+      'table' => [
+        'group' => t('AccessACS Individuals'),
+        'base' => [
+          'field' => 'AddrId',
+          'title' => t('AccessACS Addresses'),
+          'help' => t('AccessACS Addresses'),
+          'weight' => -10,
+        ],
+      ],
+      'AddrId' => [
+        'title' => t('AddrId'),
+        'help' => t('AddrId'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+    ],
   ];
 }
