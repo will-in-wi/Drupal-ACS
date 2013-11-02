@@ -142,26 +142,43 @@ function acssync_sync() {
 
       if (is_array($individual->Addresses)) {
         foreach ($individual->Addresses as $address) {
-          db_insert('accessacs_addresses')
+
+          // Check to see if the address is already in the database.
+          $res = db_select('accessacs_addresses')
+            ->condition('AddrId', $address->AddrId)
+            ->fields('accessacs_addresses', ['AddrId'])
+            ->range(0, 1)
+            ->execute()
+            ->fetchField();
+
+          if ($res === FALSE) {
+            db_insert('accessacs_addresses')
+              ->fields(array(
+                'AddrId' => $address->AddrId,
+                'AddrType' => $address->AddrType,
+                'MailAddress' => $address->MailAddress,
+                'Address2' => $address->Address2,
+                'City' => $address->City,
+                'Address' => $address->Address,
+                'Longitude' => $address->Longitude,
+                'State' => $address->State,
+                'ActiveAddress' => $address->ActiveAddress,
+                'Zipcode' => $address->Zipcode,
+                'FamilyAddress' => $address->FamilyAddress,
+                'Country' => $address->Country,
+                'Company' => $address->Company,
+                'StatementAddress' => $address->StatementAddress,
+                'Latitude' => $address->Latitude,
+                'CityStateZip' => $address->CityStateZip,
+                'AddrTypeId' => $address->AddrTypeId,
+              ))
+              ->execute();
+          }
+
+          db_insert('accessacs_addresses_individual')
             ->fields(array(
               'IndvId' => $individual->IndvId,
               'AddrId' => $address->AddrId,
-              'AddrType' => $address->AddrType,
-              'MailAddress' => $address->MailAddress,
-              'Address2' => $address->Address2,
-              'City' => $address->City,
-              'Address' => $address->Address,
-              'Longitude' => $address->Longitude,
-              'State' => $address->State,
-              'ActiveAddress' => $address->ActiveAddress,
-              'Zipcode' => $address->Zipcode,
-              'FamilyAddress' => $address->FamilyAddress,
-              'Country' => $address->Country,
-              'Company' => $address->Company,
-              'StatementAddress' => $address->StatementAddress,
-              'Latitude' => $address->Latitude,
-              'CityStateZip' => $address->CityStateZip,
-              'AddrTypeId' => $address->AddrTypeId,
             ))
             ->execute();
         }
