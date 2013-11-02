@@ -270,9 +270,6 @@ function acssync_sync() {
       else {
         watchdog('ACSSync', 'Individual  of ID @id has a invalid Email Address array.', array('@id' => $individual->IndvId), WATCHDOG_WARNING);
       }
-
-      // Keep multiple records from inserting at the moment.
-      // return;
     }
   }
   catch (Exception $e) {
@@ -285,10 +282,11 @@ function acssync_sync() {
 
 
 /**
- * TODO: Insert records into child tables.
  * TODO: Sync views fields with table fields.
  * TODO: Expose child tables to views.
  * TODO: Set up relationships in views.
+ * TODO: Set up sync code to use the Batch API.
+ * TODO: Use Background Batch to make this work with Cron. https://drupal.org/project/background_process
  * TODO: Abstract sync code into its own class.
  * TODO: Create manual form for syncing data.
  * TODO: Consider using the long process API for this.
