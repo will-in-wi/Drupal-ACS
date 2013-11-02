@@ -233,14 +233,34 @@ function acssync_sync() {
 
       if (is_array($individual->Emails)) {
         foreach ($individual->Emails as $email) {
-          db_insert('accessacs_email')
+
+          // Check to see if the email address is already in the database.
+          $res = db_select('accessacs_email')
+            ->condition('EmailId', $phone->EmailId)
+            ->fields('accessacs_email', ['EmailId'])
+            ->range(0, 1)
+            ->execute()
+            ->fetchField();
+
+          // If the email address doesn't exist, stick it in there.
+          if ($res === FALSE) {
+            db_insert('accessacs_email')
+              ->fields(array(
+                'IndvId' => $email->IndvId,
+                'EmailId' => $email->EmailId,
+                'Listed' => $email->Listed,
+                'Preferred' => $email->Preferred,
+                'EmailType' => $email->EmailType,
+                'Email' => $email->Email,
+              ))
+              ->execute();
+          }
+
+          // Add to join table.
+          db_insert('accessacs_email_individual')
             ->fields(array(
               'IndvId' => $email->IndvId,
               'EmailId' => $email->EmailId,
-              'Listed' => $email->Listed,
-              'Preferred' => $email->Preferred,
-              'EmailType' => $email->EmailType,
-              'Email' => $email->Email,
             ))
             ->execute();
         }
