@@ -27,7 +27,7 @@ class API {
 		]);
 
 		if ($result->code != 200) {
-			throw new Exception('ACS API returned an error ' . $result->code);
+			throw new \Exception('ACS API returned an error ' . $result->code);
 			return;
 		}
 
