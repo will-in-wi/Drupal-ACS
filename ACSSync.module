@@ -151,6 +151,7 @@ function acssync_sync() {
             ->execute()
             ->fetchField();
 
+          // If the address doesn't exist, stick it in there.
           if ($res === FALSE) {
             db_insert('accessacs_addresses')
               ->fields(array(
@@ -175,6 +176,7 @@ function acssync_sync() {
               ->execute();
           }
 
+          // Add to join table.
           db_insert('accessacs_addresses_individual')
             ->fields(array(
               'IndvId' => $individual->IndvId,
