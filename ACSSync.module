@@ -191,19 +191,38 @@ function acssync_sync() {
 
       if (is_array($individual->Phones)) {
         foreach ($individual->Phones as $phone) {
-          db_insert('accessacs_phone')
+
+          // Check to see if the phone number is already in the database.
+          $res = db_select('accessacs_phone')
+            ->condition('PhoneId', $phone->PhoneId)
+            ->fields('accessacs_phone', ['PhoneId'])
+            ->range(0, 1)
+            ->execute()
+            ->fetchField();
+
+          // If the phone number doesn't exist, stick it in there.
+          if ($res === FALSE) {
+            db_insert('accessacs_phone')
+              ->fields(array(
+                'PhoneId' => $phone->PhoneId,
+                'PhoneTypeId' => $phone->PhoneTypeId,
+                'PhoneRef' => $phone->PhoneRef,
+                'Listed' => $phone->Listed,
+                'PhoneNumber' => $phone->PhoneNumber,
+                'Preferred' => $phone->Preferred,
+                'FamilyPhone' => $phone->FamilyPhone,
+                'AddrPhone' => $phone->AddrPhone,
+                'Extension' => $phone->Extension,
+                'PhoneType' => $phone->PhoneType,
+              ))
+              ->execute();
+          }
+
+          // Add to join table.
+          db_insert('accessacs_phone_individual')
             ->fields(array(
               'IndvId' => $individual->IndvId,
               'PhoneId' => $phone->PhoneId,
-              'PhoneTypeId' => $phone->PhoneTypeId,
-              'PhoneRef' => $phone->PhoneRef,
-              'Listed' => $phone->Listed,
-              'PhoneNumber' => $phone->PhoneNumber,
-              'Preferred' => $phone->Preferred,
-              'FamilyPhone' => $phone->FamilyPhone,
-              'AddrPhone' => $phone->AddrPhone,
-              'Extension' => $phone->Extension,
-              'PhoneType' => $phone->PhoneType,
             ))
             ->execute();
         }
