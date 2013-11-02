@@ -117,6 +117,9 @@ function acssync_sync() {
     db_truncate('accessacs_addresses')->execute();
     db_truncate('accessacs_phone')->execute();
     db_truncate('accessacs_email')->execute();
+    db_truncate('accessacs_addresses_individual')->execute();
+    db_truncate('accessacs_phone_individual')->execute();
+    db_truncate('accessacs_email_individual')->execute();
 
     foreach ($result->Page as $simple_person) {
       $individual = $acs_api->get_person($simple_person->IndvId);
@@ -209,7 +212,7 @@ function acssync_sync() {
                 'PhoneRef' => $phone->PhoneRef,
                 'Listed' => $phone->Listed,
                 'PhoneNumber' => $phone->PhoneNumber,
-                'Preferred' => $phone->Preferred,
+                'Preferred' => (boolean) $phone->Preferred,
                 'FamilyPhone' => $phone->FamilyPhone,
                 'AddrPhone' => $phone->AddrPhone,
                 'Extension' => $phone->Extension,
@@ -246,10 +249,9 @@ function acssync_sync() {
           if ($res === FALSE) {
             db_insert('accessacs_email')
               ->fields(array(
-                'IndvId' => $email->IndvId,
                 'EmailId' => $email->EmailId,
                 'Listed' => $email->Listed,
-                'Preferred' => $email->Preferred,
+                'Preferred' => (boolean) $email->Preferred,
                 'EmailType' => $email->EmailType,
                 'Email' => $email->Email,
               ))
@@ -259,7 +261,7 @@ function acssync_sync() {
           // Add to join table.
           db_insert('accessacs_email_individual')
             ->fields(array(
-              'IndvId' => $email->IndvId,
+              'IndvId' => $individual->IndvId,
               'EmailId' => $email->EmailId,
             ))
             ->execute();
@@ -270,11 +272,12 @@ function acssync_sync() {
       }
 
       // Keep multiple records from inserting at the moment.
-      return;
+      // return;
     }
   }
   catch (Exception $e) {
     $transaction->rollback();
+    var_dump($e);
     watchdog('ACSSync', 'ACS Sync failed, database error: @message', array('@message' => $e->getMessage()), WATCHDOG_ERROR);
   }
 
