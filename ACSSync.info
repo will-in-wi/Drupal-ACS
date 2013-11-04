@@ -4,5 +4,6 @@ core = 7.x
 package = ACS
 configure = admin/config/content/acs-sync
 files[] = ACSSync.module
+files[] = ACSSync.batch.inc
 dependencies[] = xautoload
 php = 5.4
