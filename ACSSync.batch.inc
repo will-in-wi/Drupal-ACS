@@ -1,4 +1,11 @@
 <?php
+/**
+ * @file
+ * The ACSSync batch logic
+ *
+ * Interfaces with the Batch API to run the longer process.
+ */
+
 
 /**
  * Start batch process.
@@ -19,10 +26,13 @@ function start_acssync_batch() {
   ];
 
   batch_set($batch);
-  batch_process('/'); // Redirect location after done. Omit if FAPI.
+  // Redirect location after done. Omit if FAPI.
+  batch_process('/');
 }
 
-
+/**
+ * Gets the master list of people.
+ */
 function get_initial_acssync_people(&$context) {
   $context['message'] = 'Retrieving master individual list.';
 
@@ -50,7 +60,9 @@ function get_initial_acssync_people(&$context) {
   }
 }
 
-
+/**
+ * Delete old data.
+ */
 function truncate_acssync_tables(&$context) {
   $context['message'] = 'Removing old data.';
 
@@ -68,62 +80,7 @@ function truncate_acssync_tables(&$context) {
 
 
 /**
- * Batch Operation Callback
- *
- * Each batch operation callback will iterate over and over until
- * $context['finished'] is set to 1. After each pass, batch.inc will
- * check its timer and see if it is time for a new http request,
- * i.e. when more than 1 minute has elapsed since the last request.
- * Note that $context['finished'] is set to 1 on entry - a single pass
- * operation is assumed by default.
- *
- * An entire batch that processes very quickly might only need a single
- * http request even if it iterates through the callback several times,
- * while slower processes might initiate a new http request on every
- * iteration of the callback.
- *
- * This means you should set your processing up to do in each iteration
- * only as much as you can do without a php timeout, then let batch.inc
- * decide if it needs to make a fresh http request.
- *
- * @param options1, options2
- *   If any arguments were sent to the operations callback, they
- *   will be the first arguments available to the callback.
- *
- * @param context
- *   $context is an array that will contain information about the
- *   status of the batch. The values in $context will retain their
- *   values as the batch progresses.
- *
- * @param $context['sandbox']
- *   Use the $context['sandbox'] rather than $_SESSION to store the
- *   information needed to track information between successive calls to
- *   the current operation. If you need to pass values to the next operation
- *   use $context['results'].
- *
- *   The values in the sandbox will be stored and updated in the database
- *   between http requests until the batch finishes processing. This will
- *   avoid problems if the user navigates away from the page before the
- *   batch finishes.
- *
- * @param $context['results']
- *   The array of results gathered so far by the batch processing. This
- *   array is highly useful for passing data between operations. After all
- *   operations have finished, these results may be referenced to display
- *   information to the end-user, such as how many total items were
- *   processed.
- *
- * @param $context['message']
- *   A text message displayed in the progress page.
- *
- * @param $context['finished']
- *   A float number between 0 and 1 informing the processing engine
- *   of the completion level for the operation.
- *
- *   1 (or no value explicitly set) means the operation is finished
- *   and the batch processing can continue to the next operation.
- *
- *   Batch API resets this to 1 each time the operation callback is called.
+ * Processes an individual person.
  */
 function process_acssync_person(&$context) {
   $simple_person = array_pop($context['results']['pending']);
@@ -285,7 +242,6 @@ function process_acssync_person(&$context) {
 }
 
 
-
 /**
  * Batch 'finished' callback.
  * @todo Rewrite this method.
@@ -293,15 +249,17 @@ function process_acssync_person(&$context) {
 function batch_acssync_finished($success, $results, $operations) {
   if ($success) {
     // Here we do something meaningful with the results.
-    $message = count($results['done']) .' individuals processed.';
-    // $message .= theme('item_list', $results);  // D6 syntax
+    $message = count($results['done']) . ' individuals processed.';
     drupal_set_message($message);
   }
   else {
     // An error occurred.
     // $operations contains the operations that remained unprocessed.
     $error_operation = reset($operations);
-    $message = t('An error occurred while processing %error_operation with arguments: @arguments', array('%error_operation' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
+    $message = t('An error occurred while processing %error_operation with arguments: @arguments', [
+      '%error_operation' => $error_operation[0],
+      '@arguments' => print_r($error_operation[1], TRUE,
+    ]));
     drupal_set_message($message, 'error');
   }
 }
