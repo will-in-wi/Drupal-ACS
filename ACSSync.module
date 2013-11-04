@@ -97,7 +97,6 @@ function acssync_sync() {
  * TODO: Sync views fields with table fields.
  * TODO: Expose child tables to views.
  * TODO: Set up relationships in views.
- * TODO: Set up sync code to use the Batch API.
  * TODO: Use Background Batch to make this work with Cron. https://drupal.org/project/background_process
  * TODO: Abstract sync code into its own class.
  * TODO: Create manual form for syncing data.
