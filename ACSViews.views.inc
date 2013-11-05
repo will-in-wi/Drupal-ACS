@@ -184,9 +184,54 @@ function acsviews_views_data() {
         ],
       ],
     ],
+
+
+    'accessacs_addresses_individual' => [
+      'table' => [
+        'group' => t('AccessACS Addresses'),
+        'join' => [
+          'accessacs_individuals' => [
+            'left_field' => 'IndvId',
+            'field' => 'IndvId',
+          ],
+          'accessacs_addresses' => [
+            'left_field' => 'AddrId',
+            'field' => 'AddrId',
+          ]
+        ],
+      ],
+      'AddrId' => [
+        'title' => t('AddrId'),
+        'help' => t('AddrId'),
+        'relationship' => [
+          'base' => 'accessacs_addresses', // The name of the table to join with.
+          'base field' => 'AddrId', // The name of the field on the joined table.
+          // 'field' => 'nid' -- see hook_views_data_alter(); not needed here.
+          'handler' => 'views_handler_relationship',
+          'label' => t('Address Relationship'),
+          'title' => t('Address Relationship'),
+          'help' => t('More information on this AddrId relationship'),
+        ],
+      ],
+      'IndvId' => [
+        'title' => t('IndvId'),
+        'help' => t('IndvId'),
+        'relationship' => [
+          'base' => 'accessacs_individuals', // The name of the table to join with.
+          'base field' => 'IndvId', // The name of the field on the joined table.
+          // 'field' => 'nid' -- see hook_views_data_alter(); not needed here.
+          'handler' => 'views_handler_relationship',
+          'label' => t('Individual Relationship'),
+          'title' => t('Individual Relationship'),
+          'help' => t('More information on this IndvId relationship'),
+        ],
+      ],
+    ],
+
+
     'accessacs_addresses' => [
       'table' => [
-        'group' => t('AccessACS Individuals'),
+        'group' => t('AccessACS Addresses'),
         'base' => [
           'field' => 'AddrId',
           'title' => t('AccessACS Addresses'),
@@ -469,34 +514,6 @@ function acsviews_views_data() {
       'AddrTypeId' => [
         'title' => t('AddrTypeId'),
         'help' => t('AddrTypeId'),
-        'field' => [
-          'handler' => 'views_handler_field',
-          'click sortable' => TRUE,
-        ],
-        'filter' => [
-          'handler' => 'views_handler_filter_string',
-        ],
-        'sort' => [
-          'handler' => 'views_handler_sort',
-        ],
-        'argument' => [
-          'handler' => 'views_handler_argument_string',
-        ],
-      ],
-    ],
-    'accessacs_addresses_individual' => [
-      'table' => [
-        'group' => t('AccessACS Individuals'),
-        'base' => [
-          'field' => 'AddrId',
-          'title' => t('AccessACS Addresses'),
-          'help' => t('AccessACS Addresses'),
-          'weight' => -10,
-        ],
-      ],
-      'AddrId' => [
-        'title' => t('AddrId'),
-        'help' => t('AddrId'),
         'field' => [
           'handler' => 'views_handler_field',
           'click sortable' => TRUE,
