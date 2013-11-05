@@ -655,17 +655,16 @@ function acsviews_views_data() {
         'title' => t('Listed'),
         'help' => t('Listed'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_boolean',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_boolean_operator',
+          'type' => 'yes-no',
+          'use equal' => TRUE,
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
-        ],
-        'argument' => [
-          'handler' => 'views_handler_argument_string',
         ],
       ],
       'PhoneNumber' => [
@@ -817,8 +816,8 @@ function acsviews_views_data() {
           'base' => 'accessacs_email',
           'base field' => 'EmailId',
           'handler' => 'views_handler_relationship',
-          'label' => t('Phone Number Relationship'),
-          'title' => t('Phone Number Relationship'),
+          'label' => t('Email Address Relationship'),
+          'title' => t('Email Address Relationship'),
           'help' => t('More information on this EmailId relationship'),
         ],
       ],
@@ -855,17 +854,16 @@ function acsviews_views_data() {
         'title' => t('Listed'),
         'help' => t('Listed'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_boolean',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_boolean_operator',
+          'type' => 'yes-no',
+          'use equal' => TRUE,
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
-        ],
-        'argument' => [
-          'handler' => 'views_handler_argument_string',
         ],
       ],
       'Preferred' => [
