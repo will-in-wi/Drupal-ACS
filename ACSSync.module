@@ -97,6 +97,7 @@ function acssync_sync() {
  * TODO: Use Background Batch to make this work with Cron.
  *   https://drupal.org/project/background_process
  * TODO: Abstract sync code into its own class.
+ * TODO: Clean up views titles, descriptions, and help text.
  * TODO: Throw a system status error when the credentials are not set.
  * TODO: Create manual form for syncing data.
  * TODO: Consider using the long process API for this.
