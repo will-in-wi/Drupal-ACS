@@ -537,5 +537,239 @@ function acsviews_views_data() {
         ],
       ],
     ],
+
+    // Relationship for the Phone table.
+    'accessacs_phone_individual_phone' => [
+      'table' => [
+        'group' => t('AccessACS Individuals'),
+        'join' => [
+          'accessacs_phone' => [
+            'left_field' => 'PhoneId',
+            'field' => 'PhoneId',
+            'table' => 'accessacs_phone_individual',
+          ]
+        ],
+      ],
+      'IndvId' => [
+        'title' => t('IndvId'),
+        'help' => t('IndvId'),
+        'relationship' => [
+          'base' => 'accessacs_individuals',
+          'base field' => 'IndvId',
+          'handler' => 'views_handler_relationship',
+          'label' => t('Individual Relationship'),
+          'title' => t('Individual Relationship'),
+          'help' => t('More information on this IndvId relationship'),
+        ],
+      ],
+    ],
+
+    // Relationship for the Individual table.
+    'accessacs_phone_individual_indv' => [
+      'table' => [
+        'group' => t('AccessACS Phone Numbers'),
+        'join' => [
+          'accessacs_individuals' => [
+            'left_field' => 'IndvId',
+            'field' => 'IndvId',
+            'table' => 'accessacs_phone_individual',
+          ],
+        ],
+      ],
+      'PhoneId' => [
+        'title' => t('PhoneId'),
+        'help' => t('PhoneId'),
+        'relationship' => [
+          'base' => 'accessacs_phone',
+          'base field' => 'PhoneId',
+          'handler' => 'views_handler_relationship',
+          'label' => t('Phone Number Relationship'),
+          'title' => t('Phone Number Relationship'),
+          'help' => t('More information on this PhoneId relationship'),
+        ],
+      ],
+    ],
+
+    'accessacs_phone' => [
+      'table' => [
+        'group' => t('AccessACS Phone Numbers'),
+        'base' => [
+          'field' => 'PhoneId',
+          'title' => t('AccessACS Phone Numbers'),
+          'help' => t('AccessACS Phone Numbers'),
+          'weight' => -10,
+        ],
+      ],
+      'PhoneId' => [
+        'title' => t('PhoneId'),
+        'help' => t('PhoneId'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'PhoneTypeId' => [
+        'title' => t('PhoneTypeId'),
+        'help' => t('PhoneTypeId'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'PhoneRef' => [
+        'title' => t('PhoneRef'),
+        'help' => t('PhoneRef'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Listed' => [
+        'title' => t('Listed'),
+        'help' => t('Listed'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'PhoneNumber' => [
+        'title' => t('PhoneNumber'),
+        'help' => t('PhoneNumber'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Preferred' => [
+        'title' => t('Preferred'),
+        'help' => t('Preferred'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'FamilyPhone' => [
+        'title' => t('FamilyPhone'),
+        'help' => t('FamilyPhone'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'AddrPhone' => [
+        'title' => t('AddrPhone'),
+        'help' => t('AddrPhone'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Extension' => [
+        'title' => t('Extension'),
+        'help' => t('Extension'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'PhoneType' => [
+        'title' => t('PhoneType'),
+        'help' => t('PhoneType'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+    ],
   ];
 }
