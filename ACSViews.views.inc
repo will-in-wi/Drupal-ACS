@@ -285,17 +285,16 @@ function acsviews_views_data() {
         'title' => t('MailAddress'),
         'help' => t('MailAddress'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_boolean',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_boolean_operator',
+          'type' => 'yes-no',
+          'use equal' => TRUE,
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
-        ],
-        'argument' => [
-          'handler' => 'views_handler_argument_string',
         ],
       ],
       'Address2' => [
@@ -387,11 +386,13 @@ function acsviews_views_data() {
         'title' => t('ActiveAddress'),
         'help' => t('ActiveAddress'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_boolean',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_boolean_operator',
+          'type' => 'yes-no',
+          'use equal' => TRUE,
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
@@ -421,11 +422,13 @@ function acsviews_views_data() {
         'title' => t('FamilyAddress'),
         'help' => t('FamilyAddress'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_boolean',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_boolean_operator',
+          'type' => 'yes-no',
+          'use equal' => TRUE,
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
@@ -472,11 +475,13 @@ function acsviews_views_data() {
         'title' => t('StatementAddress'),
         'help' => t('StatementAddress'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_boolean',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_boolean_operator',
+          'type' => 'yes-no',
+          'use equal' => TRUE,
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
@@ -688,51 +693,48 @@ function acsviews_views_data() {
         'title' => t('Preferred'),
         'help' => t('Preferred'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_boolean',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_boolean_operator',
+          'type' => 'yes-no',
+          'use equal' => TRUE,
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
-        ],
-        'argument' => [
-          'handler' => 'views_handler_argument_string',
         ],
       ],
       'FamilyPhone' => [
         'title' => t('FamilyPhone'),
         'help' => t('FamilyPhone'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_boolean',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_boolean_operator',
+          'type' => 'yes-no',
+          'use equal' => TRUE,
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
-        ],
-        'argument' => [
-          'handler' => 'views_handler_argument_string',
         ],
       ],
       'AddrPhone' => [
         'title' => t('AddrPhone'),
         'help' => t('AddrPhone'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_boolean',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_boolean_operator',
+          'type' => 'yes-no',
+          'use equal' => TRUE,
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
-        ],
-        'argument' => [
-          'handler' => 'views_handler_argument_string',
         ],
       ],
       'Extension' => [
@@ -870,17 +872,16 @@ function acsviews_views_data() {
         'title' => t('Preferred'),
         'help' => t('Preferred'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_boolean',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_boolean_operator',
+          'type' => 'yes-no',
+          'use equal' => TRUE,
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
-        ],
-        'argument' => [
-          'handler' => 'views_handler_argument_string',
         ],
       ],
       'EmailType' => [
