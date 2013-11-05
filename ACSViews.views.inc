@@ -771,5 +771,154 @@ function acsviews_views_data() {
         ],
       ],
     ],
+
+    // Relationship for the Email table.
+    'accessacs_email_individual_phone' => [
+      'table' => [
+        'group' => t('AccessACS Individuals'),
+        'join' => [
+          'accessacs_email' => [
+            'left_field' => 'EmailId',
+            'field' => 'EmailId',
+            'table' => 'accessacs_email_individual',
+          ]
+        ],
+      ],
+      'IndvId' => [
+        'title' => t('IndvId'),
+        'help' => t('IndvId'),
+        'relationship' => [
+          'base' => 'accessacs_individuals',
+          'base field' => 'IndvId',
+          'handler' => 'views_handler_relationship',
+          'label' => t('Individual Relationship'),
+          'title' => t('Individual Relationship'),
+          'help' => t('More information on this IndvId relationship'),
+        ],
+      ],
+    ],
+
+    // Relationship for the Individual table.
+    'accessacs_email_individual_indv' => [
+      'table' => [
+        'group' => t('AccessACS Email Addresses'),
+        'join' => [
+          'accessacs_individuals' => [
+            'left_field' => 'IndvId',
+            'field' => 'IndvId',
+            'table' => 'accessacs_email_individual',
+          ],
+        ],
+      ],
+      'EmailId' => [
+        'title' => t('EmailId'),
+        'help' => t('EmailId'),
+        'relationship' => [
+          'base' => 'accessacs_email',
+          'base field' => 'EmailId',
+          'handler' => 'views_handler_relationship',
+          'label' => t('Phone Number Relationship'),
+          'title' => t('Phone Number Relationship'),
+          'help' => t('More information on this EmailId relationship'),
+        ],
+      ],
+    ],
+
+    'accessacs_email' => [
+      'table' => [
+        'group' => t('AccessACS Email Addresses'),
+        'base' => [
+          'field' => 'EmailId',
+          'title' => t('AccessACS Email Addresses'),
+          'help' => t('AccessACS Email Addresses'),
+          'weight' => -10,
+        ],
+      ],
+      'EmailId' => [
+        'title' => t('EmailId'),
+        'help' => t('EmailId'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Listed' => [
+        'title' => t('Listed'),
+        'help' => t('Listed'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Preferred' => [
+        'title' => t('Preferred'),
+        'help' => t('Preferred'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'EmailType' => [
+        'title' => t('EmailType'),
+        'help' => t('EmailType'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+      'Email' => [
+        'title' => t('Email'),
+        'help' => t('Email'),
+        'field' => [
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ],
+        'filter' => [
+          'handler' => 'views_handler_filter_string',
+        ],
+        'sort' => [
+          'handler' => 'views_handler_sort',
+        ],
+        'argument' => [
+          'handler' => 'views_handler_argument_string',
+        ],
+      ],
+    ],
   ];
 }
