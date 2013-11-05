@@ -185,7 +185,6 @@ function acsviews_views_data() {
       ],
     ],
 
-
     // Relationship for the Address table.
     'accessacs_addresses_individual_addr' => [
       'table' => [
@@ -202,9 +201,8 @@ function acsviews_views_data() {
         'title' => t('IndvId'),
         'help' => t('IndvId'),
         'relationship' => [
-          'base' => 'accessacs_individuals', // The name of the table to join with.
-          'base field' => 'IndvId', // The name of the field on the joined table.
-          // 'field' => 'nid' -- see hook_views_data_alter(); not needed here.
+          'base' => 'accessacs_individuals',
+          'base field' => 'IndvId',
           'handler' => 'views_handler_relationship',
           'label' => t('Individual Relationship'),
           'title' => t('Individual Relationship'),
@@ -212,7 +210,6 @@ function acsviews_views_data() {
         ],
       ],
     ],
-
 
     // Relationship for the Individual table.
     'accessacs_addresses_individual_indv' => [
@@ -230,9 +227,8 @@ function acsviews_views_data() {
         'title' => t('AddrId'),
         'help' => t('AddrId'),
         'relationship' => [
-          'base' => 'accessacs_addresses', // The name of the table to join with.
-          'base field' => 'AddrId', // The name of the field on the joined table.
-          // 'field' => 'nid' -- see hook_views_data_alter(); not needed here.
+          'base' => 'accessacs_addresses',
+          'base field' => 'AddrId',
           'handler' => 'views_handler_relationship',
           'label' => t('Address Relationship'),
           'title' => t('Address Relationship'),
@@ -240,7 +236,6 @@ function acsviews_views_data() {
         ],
       ],
     ],
-
 
     'accessacs_addresses' => [
       'table' => [
