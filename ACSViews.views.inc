@@ -251,17 +251,17 @@ function acsviews_views_data() {
         'title' => t('AddrId'),
         'help' => t('AddrId'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_numeric',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_numeric',
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
         ],
         'argument' => [
-          'handler' => 'views_handler_argument_string',
+          'handler' => 'views_handler_argument_numeric',
         ],
       ],
       'AddrType' => [
@@ -528,17 +528,17 @@ function acsviews_views_data() {
         'title' => t('AddrTypeId'),
         'help' => t('AddrTypeId'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_numeric',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_numeric',
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
         ],
         'argument' => [
-          'handler' => 'views_handler_argument_string',
+          'handler' => 'views_handler_argument_numeric',
         ],
       ],
     ],
@@ -609,51 +609,51 @@ function acsviews_views_data() {
         'title' => t('PhoneId'),
         'help' => t('PhoneId'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_numeric',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_numeric',
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
         ],
         'argument' => [
-          'handler' => 'views_handler_argument_string',
+          'handler' => 'views_handler_argument_numeric',
         ],
       ],
       'PhoneTypeId' => [
         'title' => t('PhoneTypeId'),
         'help' => t('PhoneTypeId'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_numeric',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_numeric',
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
         ],
         'argument' => [
-          'handler' => 'views_handler_argument_string',
+          'handler' => 'views_handler_argument_numeric',
         ],
       ],
       'PhoneRef' => [
         'title' => t('PhoneRef'),
         'help' => t('PhoneRef'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_numeric',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_numeric',
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
         ],
         'argument' => [
-          'handler' => 'views_handler_argument_string',
+          'handler' => 'views_handler_argument_numeric',
         ],
       ],
       'Listed' => [
@@ -839,17 +839,17 @@ function acsviews_views_data() {
         'title' => t('EmailId'),
         'help' => t('EmailId'),
         'field' => [
-          'handler' => 'views_handler_field',
+          'handler' => 'views_handler_field_numeric',
           'click sortable' => TRUE,
         ],
         'filter' => [
-          'handler' => 'views_handler_filter_string',
+          'handler' => 'views_handler_filter_numeric',
         ],
         'sort' => [
           'handler' => 'views_handler_sort',
         ],
         'argument' => [
-          'handler' => 'views_handler_argument_string',
+          'handler' => 'views_handler_argument_numeric',
         ],
       ],
       'Listed' => [
