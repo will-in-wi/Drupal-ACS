@@ -58,7 +58,7 @@ class API {
 			} else {
 				return FALSE;
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			return FALSE;
 		}
 	}
