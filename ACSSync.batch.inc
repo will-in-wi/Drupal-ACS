@@ -26,8 +26,6 @@ function start_acssync_batch() {
   ];
 
   batch_set($batch);
-  // Redirect location after done. Omit if FAPI.
-  batch_process('/');
 }
 
 /**
@@ -258,10 +256,10 @@ function batch_acssync_finished($success, $results, $operations) {
     // An error occurred.
     // $operations contains the operations that remained unprocessed.
     $error_operation = reset($operations);
-    // $message = t('An error occurred while processing %error_operation with arguments: @arguments', array(
-    //   '%error_operation' => $error_operation[0],
-    //   '@arguments' => print_r($error_operation[1], TRUE)
-    // ));
-    // drupal_set_message($message, 'error');
+    $message = t('An error occurred while processing %error_operation with arguments: @arguments', array(
+      '%error_operation' => $error_operation[0],
+      '@arguments' => print_r($error_operation[1], TRUE)
+    ));
+    drupal_set_message($message, 'error');
   }
 }
