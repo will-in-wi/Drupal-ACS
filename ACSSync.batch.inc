@@ -47,8 +47,10 @@ function get_initial_acssync_people(&$context) {
 
   $acs_api = new Drupal\ACSSync\API($site_number, $username, $password);
 
+  // TODO: Get by pages.
+
   try {
-    $people = $acs_api->get_all_people(200);
+    $people = $acs_api->get_all_people(2000);
     $context['results']['pending'] = $people->Page;
     $context['results']['done'] = [];
     $context['results']['acsapi'] = $acs_api;
@@ -256,10 +258,10 @@ function batch_acssync_finished($success, $results, $operations) {
     // An error occurred.
     // $operations contains the operations that remained unprocessed.
     $error_operation = reset($operations);
-    $message = t('An error occurred while processing %error_operation with arguments: @arguments', [
-      '%error_operation' => $error_operation[0],
-      '@arguments' => print_r($error_operation[1], TRUE,
-    ]));
-    drupal_set_message($message, 'error');
+    // $message = t('An error occurred while processing %error_operation with arguments: @arguments', array(
+    //   '%error_operation' => $error_operation[0],
+    //   '@arguments' => print_r($error_operation[1], TRUE)
+    // ));
+    // drupal_set_message($message, 'error');
   }
 }

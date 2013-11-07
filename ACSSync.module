@@ -92,14 +92,35 @@ function acssync_sync() {
 
 }
 
-
 /**
- * TODO: Use Background Batch to make this work with Cron.
- *   https://drupal.org/project/background_process
- * TODO: Abstract sync code into its own class.
- * TODO: Clean up views titles, descriptions, and help text.
- * TODO: Throw a system status error when the credentials are not set.
- * TODO: Create manual form for syncing data.
- * TODO: Consider using the long process API for this.
- * TODO: Create the ability to run this on a cron job.
+ * Implements hook_requirements().
  */
+function acssync_requirements($phase) {
+  $req = [];
+
+  $req['acssync_credentials'] = [
+    'title' => t('ACSSync Credentials'),
+    // 'description' => t('ACSSync needs valid credentials to work.'),
+  ];
+
+  // Check to see whether the credentials exist and work.
+  $site_number = variable_get('acs_site_number');
+  $username = variable_get('acs_username');
+  $password = variable_get('acs_password');
+  if ($site_number && $username && $password) {
+    // Credentials exist, check their validity.
+    $acs_api = new Drupal\ACSSync\API($site_number, $username, $password);
+    if ($acs_api->check_credentials()) {
+      $req['acssync_credentials']['value'] = t('Credentials are set and valid.');
+      $req['acssync_credentials']['severity'] = REQUIREMENT_OK;
+    } else {
+      $req['acssync_credentials']['value'] = t('Credentials are set but don\'t work.');
+      $req['acssync_credentials']['severity'] = REQUIREMENT_WARNING;
+    }
+  } else {
+    $req['acssync_credentials']['value'] = t('Credentials are not set.');
+    $req['acssync_credentials']['severity'] = REQUIREMENT_WARNING;
+  }
+  
+  return $req;
+}

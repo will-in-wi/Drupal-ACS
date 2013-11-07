@@ -49,4 +49,17 @@ class API {
 	public function get_person($id) {
 		return $this->api_call('individuals/' . $id);
 	}
+
+	public function check_credentials() {
+		try {
+			$res = $this->get_all_people(2,1);
+			if (isset($res->Page[0])) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		} catch (Exception $e) {
+			return FALSE;
+		}
+	}
 }
