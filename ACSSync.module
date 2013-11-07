@@ -22,14 +22,6 @@ function acssync_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
-  $items['acs-sync'] = array(
-    'title' => 'Sync AccessACS',
-    'description' => 'Sync AccessACS to Drupal Tables',
-    'page callback' => 'acssync_sync',
-    'access arguments' => array('administer accessacs'),
-    'type' => MENU_NORMAL_ITEM,
-  );
-
   return $items;
 }
 
