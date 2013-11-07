@@ -5,6 +5,7 @@ Sync
 ----
 
 * Abstract sync code into its own class.
+* Enable paging on sync. We seem to only be able to get a max of 500 items.
 * Throw a system status error when the credentials are not set.
 * Create manual form for syncing data.
 * Consider using the long process API for this.
