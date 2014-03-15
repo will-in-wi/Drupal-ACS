@@ -13,6 +13,7 @@
 function start_acssync_batch() {
   $batch = [
     'operations' => [
+      ['prepare_acs_api', []],
       ['get_initial_acssync_people', []],
       ['truncate_acssync_tables', []],
       ['process_acssync_person', []],
@@ -28,11 +29,8 @@ function start_acssync_batch() {
   batch_set($batch);
 }
 
-/**
- * Gets the master list of people.
- */
-function get_initial_acssync_people(&$context) {
-  $context['message'] = 'Retrieving master individual list.';
+function prepare_acs_api(&$context) {
+  $context['message'] = 'Initializing ACS API';
 
   $site_number = variable_get('acs_site_number');
   $username = variable_get('acs_username');
@@ -43,17 +41,38 @@ function get_initial_acssync_people(&$context) {
     return;
   }
 
-  $acs_api = new Drupal\ACSSync\API($site_number, $username, $password);
+  $context['results']['acsapi'] = new Drupal\ACSSync\API($site_number, $username, $password);
+  $context['finished'] = 1;
+  $context['message'] = 'ACS API initialized.';
+}
 
-  // TODO: Get by pages.
+/**
+ * Gets the master list of people.
+ */
+function get_initial_acssync_people(&$context) {
+  // Can currently get max of 500 at a time.
+  $page_size = 500;
+
+  $page = 1;
+  if (isset($context['results']['page'])) {
+    $page = $context['results']['page'];
+  }
+
+  $context['message'] = 'Retrieving master individual list.';
+
+  if (!isset($context['results']['pending'])) {
+    $context['results']['pending'] = [];
+  }
 
   try {
-    $people = $acs_api->get_all_people(2000);
-    $context['results']['pending'] = $people->Page;
+    $people = $context['results']['acsapi']->get_all_people($page_size, $page);
+
+    $context['results']['pending'] = array_merge($context['results']['pending'], $people->Page);
+    $context['results']['page_count'] = $people->PageCount;
+    $context['results']['page'] = $people->PageIndex + 2;
     $context['results']['done'] = [];
-    $context['results']['acsapi'] = $acs_api;
-    $context['finished'] = 1;
-    $context['message'] = 'Master individual list retrieved.';
+    $context['finished'] = $people->PageIndex / ($people->PageCount - 1);
+    $context['message'] = 'Page ' . $context['results']['page'] . ' of ' . $context['results']['page_count'] . ' from master individual list retrieved.';
   }
   catch (Exception $e) {
     drupal_set_message(t('ACS API returned an error: @error', array('@error' => $e->getMessage())), 'error');
